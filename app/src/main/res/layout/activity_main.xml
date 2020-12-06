@@ -1,0 +1,112 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#49AB81"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".MainActivity" >
+
+
+
+
+
+    <EditText
+
+        android:id="@+id/editText"
+        android:background="#FFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/logo"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginTop="60dp"
+        android:focusable="true"
+        android:hint="Email"
+        android:textColorHighlight="#DD2F61"
+        android:textColorHint="#3F51B5" />
+
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:background="#FFFFFF"
+        android:layout_height="30dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/editText"
+        android:textColorHighlight="#DD2F61"
+        android:textColorHint="#3F51B5"
+        android:hint="Password" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attempts Left:"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/editText2"
+        android:layout_alignParentLeft="true"
+        android:textSize="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="n"
+        android:id="@+id/textView3"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_toRightOf="@id/textView2"
+        android:layout_marginLeft="10dp"
+        android:textSize="10dp"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:text="login"
+        android:id="@+id/button"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+
+
+        ></Button>
+    <Button
+
+        android:text="Register"
+        android:id="@+id/button2"
+        android:layout_marginTop="0dp"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:textSize="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+
+
+        ></Button>
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/lelogo" />
+
+
+</RelativeLayout>

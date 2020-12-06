@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "516199927198",
+    "firebase_url": "https://agritrade-81e60.firebaseio.com",
+    "project_id": "agritrade-81e60",
+    "storage_bucket": "agritrade-81e60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516199927198:android:e3554803c53fa5b5b61a8f",
+        "android_client_info": {
+          "package_name": "com.supcom.agritrade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516199927198-l5171rd8ml4smj20rpg372matqnggfhh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.supcom.agritrade",
+            "certificate_hash": "58384389e99cfb9eaf3b9a64824b9a532ffda214"
+          }
+        },
+        {
+          "client_id": "516199927198-dhi3cqp8jc8gg1raflu6hii87dtd1j85.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDmB5QmCVhpbnEnTJfOlVaJViJRTnfO2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516199927198-dhi3cqp8jc8gg1raflu6hii87dtd1j85.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
