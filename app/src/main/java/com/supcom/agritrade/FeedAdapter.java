@@ -4,15 +4,19 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+import java.util.Vector;
+
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
-    private String[] captions;
+    private List<PostData> captions;
     private int[] imageIds;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -24,7 +28,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         }
     }
 
-    public FeedAdapter(String[] captions) {
+    public FeedAdapter(List<PostData> captions) {
         this.captions = captions;
     }
 
@@ -38,12 +42,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FeedAdapter.ViewHolder holder, int position) {
         CardView cardView = holder.cardView;
-        TextView textView = (TextView) cardView.findViewById(R.id.info_text);
-        textView.setText(captions[position]);
+        TextView textView = (TextView) cardView.findViewById(R.id.TypeF);
+        TextView textView2 = (TextView) cardView.findViewById(R.id.PriceF);
+        TextView textView3 = (TextView) cardView.findViewById(R.id.DescriptionF);
+        textView.setText(captions.get(position).getType());
+        textView2.setText(captions.get(position).getPrice());
+        textView3.setText(captions.get(position).getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return captions.length;
+        return captions.size();
+
     }
 }
+

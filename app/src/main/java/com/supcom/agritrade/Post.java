@@ -1,5 +1,6 @@
 package com.supcom.agritrade;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,6 +53,8 @@ public class Post extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(getApplicationContext(), "Posted", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Post.this, Feed.class);
+                                startActivity(intent);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

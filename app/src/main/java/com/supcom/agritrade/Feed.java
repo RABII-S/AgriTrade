@@ -17,50 +17,57 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 public class Feed extends AppCompatActivity {
     private RecyclerView rv;
     private FeedAdapter adapter;
     private List<PostData> dataList;
+    private PostData dope;
 
-    Map<String, Object> da = new HashMap<>();
+
+    ArrayList<PostData> contactsm = new ArrayList<PostData>();
+    ArrayList<PostData> contacts = new ArrayList<PostData>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
         rv = (RecyclerView) findViewById(R.id.recyclerview);
+        final FeedAdapter adapter = new FeedAdapter(contacts);
+        rv.setAdapter(adapter);
+        db.collection("Posts")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Toast.makeText(getApplicationContext(), "Wronrials", Toast.LENGTH_SHORT).show();
+
+                                PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(), document.getData().get("Description").toString());
+                                contacts.add(p);
+                                adapter.notifyDataSetChanged();
+
+                            }
+                        } else {
+
+
+                        }
+                    }
+                });
+        /*
+        PostData.AddToContactsList(p);
+        contacts = PostData.getContactsList();
+        */
+
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        DocumentReference docRef = db.collection("users").document("mate");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        da = document.getData();
-                    } else {
-
-                    }
-                } else {
-
-                }
-            }
-        });
-        da.put("gg", 123);
-
-        Set<String> keys = da.keySet();
-        FeedAdapter adapter = new FeedAdapter(keys.toArray(new String[keys.size()]));
-        rv.setAdapter(adapter);
     }
 
 }
