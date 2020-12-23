@@ -6,32 +6,60 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_margin="5dp"
+
     card_view:cardCornerRadius="4dp">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
+
         <TextView
+
             android:id="@+id/TypeF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent" />
+            android:background="#FFFFFF"
+            android:textColor="#000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/PriceF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent" />
+            android:background="#FFFFFF"
+            android:textColor="#000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
+
             android:id="@+id/DescriptionF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent" />
+            android:background="#FFFFFF" />
     </LinearLayout>
+</LinearLayout>
 </androidx.cardview.widget.CardView>
+
