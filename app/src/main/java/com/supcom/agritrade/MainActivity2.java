@@ -1,3 +1,5 @@
+
+
 package com.supcom.agritrade;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,9 +27,10 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         //Animations
+        /*
         topAnim= AnimationUtils.loadAnimation(this,R.anim.top_animation);
         bottomAnim= AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
-
+*/
         //Hooks
         image=findViewById(R.id.imageView);
         logo=findViewById(R.id.textView);
@@ -47,3 +50,4 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 }
+

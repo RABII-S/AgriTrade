@@ -21,24 +21,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class Post extends AppCompatActivity {
 
-    private static final int PICK_IMAGE_REQUEST =111 ;
+    private static final int PICK_IMAGE_REQUEST = 22;
     private Button btnChoose, Post;
     private ImageView imageView;
 
     private Uri filePath;
-    FirebaseStorage storage;
-    StorageReference storageRef;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageReference = storage.getReference();
     ProgressDialog pd;
-
 
 
     @Override
@@ -76,8 +77,9 @@ public class Post extends AppCompatActivity {
         Post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+/*
                     if(filePath != null) {
+                        Toast.makeText(Post.this, filePath.toString(), Toast.LENGTH_SHORT).show();
                         pd.show();
 
                         StorageReference childRef = storageRef.child("image.jpg");
@@ -102,8 +104,8 @@ public class Post extends AppCompatActivity {
                     else {
                         Toast.makeText(Post.this, "Select an image", Toast.LENGTH_SHORT).show();
                     }
-
-
+*/
+                uploadImage();
                 Map<String, Object> Post = new HashMap<>();
                 Post.put("Type", Type.getText().toString());
                 Post.put("Price", Price.getText().toString());
@@ -148,11 +150,51 @@ public class Post extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+
+    private void uploadImage() {
+        if (filePath != null) {
+            Toast.makeText(Post.this, "haha" + filePath.toString(), Toast.LENGTH_SHORT).show();
+            // Code for showing progressDialog while uploading
+
+
+            // Defining the child of storageReference
+            StorageReference ref
+                    = storageReference
+                    .child(
+                            "images/"
+                                    + filePath);
+
+            // adding listeners on upload
+            // or failure of image
+
+            ref.putFile(filePath).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast
+                            .makeText(Post.this,
+                                    "Failed ",
+                                    Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast
+                            .makeText(Post.this,
+                                    "Image Uploaded!!",
+                                    Toast.LENGTH_SHORT)
+                            .show();
+                }
+            });
+
+        } else {
+            Toast.makeText(Post.this, "reeeeeeeeeer" + filePath.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
