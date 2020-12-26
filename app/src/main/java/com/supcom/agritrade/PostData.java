@@ -10,13 +10,15 @@ public class PostData {
     private String Type;
     private String Price;
     private String Description;
+    private String image;
     static ArrayList<PostData> contacts = new ArrayList<PostData>();
 
 
-    PostData(String type, String price, String description) {
+    PostData(String type, String price, String description,String image) {
         this.Type = type;
         this.Price = price;
         this.Description = description;
+        this.image=image;
 
     }
 
@@ -30,6 +32,9 @@ public class PostData {
 
     public String getDescription() {
         return Description;
+    }
+    public String getimage() {
+        return image;
     }
 
     public static ArrayList<PostData> getContactsList() {

@@ -100,7 +100,7 @@ public class MainActivity extends Activity  {
                                     Toast.makeText(getApplicationContext(), "WrongCredentials",Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Redirecting", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(MainActivity.this, Post.class);
+                                    Intent intent = new Intent(MainActivity.this, Feed.class);
                                     startActivity(intent);
                                 }
                             }

@@ -45,6 +45,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         TextView textView = (TextView) cardView.findViewById(R.id.TypeF);
         TextView textView2 = (TextView) cardView.findViewById(R.id.PriceF);
         TextView textView3 = (TextView) cardView.findViewById(R.id.DescriptionF);
+      //  ImageView image=(ImageView).cardView.findViewById(R.id.imageView) ;
         textView.setText(captions.get(position).getType());
         textView2.setText(captions.get(position).getPrice());
         textView3.setText(captions.get(position).getDescription());

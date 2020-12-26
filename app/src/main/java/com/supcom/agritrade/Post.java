@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,10 +37,11 @@ public class Post extends AppCompatActivity {
     private Button btnChoose, Post;
     private ImageView imageView;
 
-    private Uri filePath;
+    Uri filePath,url;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReference();
     ProgressDialog pd;
+
 
 
     @Override
@@ -110,6 +112,8 @@ public class Post extends AppCompatActivity {
                 Post.put("Type", Type.getText().toString());
                 Post.put("Price", Price.getText().toString());
                 Post.put("Description", Description.getText().toString());
+                Post.put("image", url.toString());
+
                 Post.put("UserID", currentUser.getUid());
 
                 db.collection("Posts").document()
@@ -190,7 +194,10 @@ public class Post extends AppCompatActivity {
                                     "Image Uploaded!!",
                                     Toast.LENGTH_SHORT)
                             .show();
+
+
                 }
+
             });
 
         } else {
