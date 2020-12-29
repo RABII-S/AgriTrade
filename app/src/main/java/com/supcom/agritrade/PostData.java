@@ -14,11 +14,11 @@ public class PostData {
     static ArrayList<PostData> contacts = new ArrayList<PostData>();
 
 
-    PostData(String type, String price, String description,String image) {
+    PostData(String type, String price, String description, String image) {
         this.Type = type;
         this.Price = price;
         this.Description = description;
-        this.image=image;
+        this.image = image;
 
     }
 
@@ -33,7 +33,8 @@ public class PostData {
     public String getDescription() {
         return Description;
     }
-    public String getimage() {
+
+    public String getImage() {
         return image;
     }
 

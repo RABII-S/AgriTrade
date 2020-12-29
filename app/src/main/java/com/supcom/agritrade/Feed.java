@@ -42,7 +42,7 @@ public class Feed extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         rv = (RecyclerView) findViewById(R.id.recyclerview);
-        final FeedAdapter adapter = new FeedAdapter(contacts);
+        final FeedAdapter adapter = new FeedAdapter(contacts, getApplicationContext());
         rv.setAdapter(adapter);
         db.collection("Posts")
                 .get()
@@ -52,7 +52,7 @@ public class Feed extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(), document.getData().get("Description").toString());
+                                PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(), document.getData().get("Description").toString(), document.getData().get("image").toString());
                                 contacts.add(p);
                                 adapter.notifyDataSetChanged();
 

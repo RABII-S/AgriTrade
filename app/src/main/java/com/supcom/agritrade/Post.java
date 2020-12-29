@@ -37,11 +37,11 @@ public class Post extends AppCompatActivity {
     private Button btnChoose, Post;
     private ImageView imageView;
 
-    Uri filePath,url;
+    Uri filePath;
+    String path;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReference();
     ProgressDialog pd;
-
 
 
     @Override
@@ -112,7 +112,7 @@ public class Post extends AppCompatActivity {
                 Post.put("Type", Type.getText().toString());
                 Post.put("Price", Price.getText().toString());
                 Post.put("Description", Description.getText().toString());
-                Post.put("image", url.toString());
+                Post.put("image", path);
 
                 Post.put("UserID", currentUser.getUid());
 
@@ -166,13 +166,11 @@ public class Post extends AppCompatActivity {
             Toast.makeText(Post.this, "haha" + filePath.toString(), Toast.LENGTH_SHORT).show();
             // Code for showing progressDialog while uploading
 
-
+            path = "images/" + UUID.randomUUID().toString();
             // Defining the child of storageReference
             StorageReference ref
                     = storageReference
-                    .child(
-                            "images/"
-                                    + filePath);
+                    .child(path);
 
             // adding listeners on upload
             // or failure of image
@@ -201,7 +199,7 @@ public class Post extends AppCompatActivity {
             });
 
         } else {
-            Toast.makeText(Post.this, "reeeeeeeeeer" + filePath.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Post.this, "filepath NULL" + filePath.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
