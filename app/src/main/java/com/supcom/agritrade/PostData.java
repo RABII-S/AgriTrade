@@ -10,7 +10,7 @@ public class PostData {
     private String Type;
     private String Price;
     private String Description;
-    private String image;
+    private static String image;
     static ArrayList<PostData> contacts = new ArrayList<PostData>();
 
 
@@ -34,7 +34,7 @@ public class PostData {
         return Description;
     }
 
-    public String getImage() {
+    public static String getImage() {
         return image;
     }
 

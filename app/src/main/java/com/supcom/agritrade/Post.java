@@ -77,8 +77,8 @@ public class Post extends AppCompatActivity {
 
 
         Post.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 /*
                     if(filePath != null) {
                         Toast.makeText(Post.this, filePath.toString(), Toast.LENGTH_SHORT).show();

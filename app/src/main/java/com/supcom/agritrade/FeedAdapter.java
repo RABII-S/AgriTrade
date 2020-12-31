@@ -1,11 +1,17 @@
 package com.supcom.agritrade;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,18 +34,28 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Vector;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     Context ct;
     private List<PostData> captions;
-    private int[] imageIds;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    private int[] imageIds;
+    Dialog dialog;
+    private LinearLayout post;
+
+    public static class ViewHolder extends RecyclerView.ViewHolder  {
+        Button choose;
         private CardView cardView;
 
         public ViewHolder(CardView v) {
             super(v);
             cardView = v;
+            choose =(Button) cardView.findViewById(R.id.button2);
+
         }
+
+
     }
 
 
@@ -52,7 +68,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public FeedAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cv = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.post_card, parent, false);
+
+
+
+
+
         return new ViewHolder(cv);
+
     }
 
 
@@ -73,6 +95,17 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         TextView textView = (TextView) cardView.findViewById(R.id.TypeF);
         TextView textView2 = (TextView) cardView.findViewById(R.id.PriceF);
         TextView textView3 = (TextView) cardView.findViewById(R.id.DescriptionF);
+        holder.choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ct ,commande.class);
+                intent.putExtra("image",PostData.getImage());
+                v.getContext().startActivity(intent);
+
+            }
+        });
+
+
 
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
