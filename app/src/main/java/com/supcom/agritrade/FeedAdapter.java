@@ -90,7 +90,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FeedAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FeedAdapter.ViewHolder holder, final int position) {
         CardView cardView = holder.cardView;
         TextView textView = (TextView) cardView.findViewById(R.id.TypeF);
         TextView textView2 = (TextView) cardView.findViewById(R.id.PriceF);
@@ -99,8 +99,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(ct ,commande.class);
-                intent.putExtra("image",PostData.getImage());
+                intent.putExtra("image",captions.get(position).getImage());
                 v.getContext().startActivity(intent);
+
 
             }
         });
