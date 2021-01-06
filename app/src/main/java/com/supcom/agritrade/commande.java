@@ -83,9 +83,7 @@ public class commande extends AppCompatActivity {
 
          postData=(PostData) getIntent().getSerializableExtra("postD");
          db1=FirebaseFirestore.getInstance();
-
         im=getIntent().getStringExtra("image");
-        Toast.makeText(getApplicationContext(), im, Toast.LENGTH_SHORT).show();
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         storageReference.child(im).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -137,49 +135,59 @@ public class commande extends AppCompatActivity {
                 submit.put("tel", Mobile.getText().toString());
                 submit.put("quantite", quantite.getText().toString());
                 submit.put("date", formattedDta);
-                submit.put("adresse",adresse.getText().toString());
+                submit.put("adresse", adresse.getText().toString());
 
                 submit.put("UserID", currentUser.getUid());
 
-                db.collection("commandes").document()
-                        .set(submit)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getApplicationContext(), "Posted", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(commande.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
 
-                                Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                final DocumentReference docRef = FirebaseFirestore.getInstance().collection("Posts").document(postData.getId());
+                Map<String, Object> map = new HashMap<>();
+
+                Integer n = Integer.parseInt(quantite.getText().toString());
+
+                Integer currentN = Integer.parseInt(postData.getDescription());
+                if (n <= currentN) {
+
+                    map.put("Description", currentN - n);
+                    docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "on Success");
+                        }
+                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e(TAG, "Onfailure", e);
+                                }
+                            });
+
+                    db.collection("commandes").document()
+                            .set(submit)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "une quantitée de " + quantite.getText().toString() + " a été commandée", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(commande.this, Feed.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                    Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "La quantité ordonnée est supérieur a la quantitée disponible", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
 
-        final DocumentReference docRef =FirebaseFirestore.getInstance().collection("Posts").document(postData.getId());
-        Map<String,Object> map=new HashMap<>();
 
-        String n="120kg";
-       map.put("Description",n);
-
-        docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG,"on Success");
-            }
-        })
-          .addOnFailureListener(new OnFailureListener() {
-              @Override
-              public void onFailure(@NonNull Exception e) {
-                  Log.e(TAG,"Onfailure",e);
-              }
-          });
 
 
     }
