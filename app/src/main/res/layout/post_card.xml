@@ -1,89 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_margin="5dp"
-
-    card_view:cardCornerRadius="4dp">
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageViewC"
-            android:layout_width="120dp"
-            android:layout_height="150dp"
-            android:layout_margin="10dp" />
-
-    <LinearLayout
+    android:layout_height="160dp">
+l
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
+        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="10dp"
+        android:layout_margin="7dp"
+        android:id="@+id/cardView">
 
-
-        <TextView
-
-            android:id="@+id/TypeF"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="#FFFFFF"
-            android:textColor="#000"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/PriceF"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="#FFFFFF"
-            android:textColor="#000"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/taswira"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher_background" />
 
-        <TextView
+            <TextView
+                android:id="@+id/quantitedisponiblex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_toRightOf="@+id/quantitedisponible"
+                android:layout_below="@+id/prixdelunite"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/averia_libre_bold"
+                android:text="1000 Kg"
+                android:textSize="15sp"
+ />
+            <TextView
+                android:id="@+id/prixdelunitex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/prixdelunite"
+                android:layout_below="@+id/typee"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/averia_libre_bold"
+                android:text="5 DT/Kg"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/typeex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_toRightOf="@+id/typee"
+                android:layout_above="@+id/prixdelunite"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/averia_libre_bold"
+                android:text="batata"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 jan 2020"
+                android:fontFamily="@font/averia_libre_bold"
+                android:layout_below="@+id/quantitedisponible"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="10dp"
+                android:textSize="12sp"
+                android:id="@+id/datex"
+                />
+            <TextView
+                android:id="@+id/typee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="22dp"
+                android:layout_toRightOf="@+id/taswira"
+                android:fontFamily="@font/averia_libre_light"
+                android:text="Type :"
+                android:textSize="15sp" />
 
-            android:id="@+id/DescriptionF"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="#FFFFFF" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/typee"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/taswira"
+                android:fontFamily="@font/averia_libre_light"
+                android:text="Prix :"
+                android:id="@+id/prixdelunite"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/prixdelunite"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/taswira"
+                android:fontFamily="@font/averia_libre_light"
+                android:text="Quantité  :"
+                android:id="@+id/quantitedisponible"
+                android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="90dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="end|bottom"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
 
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="Choose"></Button>
-    </LinearLayout>
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Button" />
-</LinearLayout>
-</androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
 

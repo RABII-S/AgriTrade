@@ -36,7 +36,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -46,9 +49,8 @@ public class Post extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 22;
     private Button btnChoose, Post;
     private ImageView imageView;
-    private Spinner sp;
-    private String Type;
-
+    private Spinner sp,spkg;
+    private String Type,unite;
     Uri filePath;
     String path;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -78,11 +80,13 @@ public class Post extends AppCompatActivity {
         });
         radio = (RadioGroup) findViewById(R.id.radiox);
         sp = (Spinner) findViewById(R.id.sp);
+        spkg=(Spinner)findViewById(R.id.spkg);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.ghala, android.R.layout.simple_spinner_item);
+                R.array.batata, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 // Apply the adapter to the spinner
         sp.setAdapter(adapter);
 
@@ -132,54 +136,35 @@ public class Post extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Type = parent.getItemAtPosition(position).toString();
 
-                Toast.makeText(getApplicationContext(), Type, Toast.LENGTH_SHORT).show();
             } // to close the onItemSelected
 
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
+        spkg.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                unite = parent.getItemAtPosition(position).toString();
+            } // to close the onItemSelected
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         Post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                    if(filePath != null) {
-                        Toast.makeText(Post.this, filePath.toString(), Toast.LENGTH_SHORT).show();
-                        pd.show();
-
-                        StorageReference childRef = storageRef.child("image.jpg");
-
-                        //uploading the image
-                        UploadTask uploadTask = childRef.putFile(filePath);
-
-                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                pd.dismiss();
-                                Toast.makeText(Post.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                pd.dismiss();
-                                Toast.makeText(Post.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    else {
-                        Toast.makeText(Post.this, "Select an image", Toast.LENGTH_SHORT).show();
-                    }
-*/
                 ProgressBar p = findViewById(R.id.prog);
                 p.setVisibility(View.VISIBLE);
+                Date currentTime = Calendar.getInstance().getTime();
+                final String formattedDta = DateFormat.getDateInstance(DateFormat.MEDIUM).format(currentTime);
                 uploadImage();
                 Map<String, Object> Post = new HashMap<>();
                 Post.put("Type", Type);
                 Post.put("Price", Price.getText().toString());
                 Post.put("Description", Description.getText().toString());
                 Post.put("image", path);
+                Post.put("Date",formattedDta);
+                Post.put("unite",unite);
                 Post.put("UserID", currentUser.getUid());
 
                 db.collection("Posts").document()
@@ -188,8 +173,7 @@ public class Post extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(getApplicationContext(), "Posted", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Post.this, Feed.class);
-                                startActivity(intent);
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -229,7 +213,7 @@ public class Post extends AppCompatActivity {
 
     private void uploadImage() {
         if (filePath != null) {
-            Toast.makeText(Post.this, "haha" + filePath.toString(), Toast.LENGTH_SHORT).show();
+
             // Code for showing progressDialog while uploading
 
             path = "images/" + UUID.randomUUID().toString();
@@ -258,6 +242,8 @@ public class Post extends AppCompatActivity {
                                     "Image Uploaded!!",
                                     Toast.LENGTH_SHORT)
                             .show();
+                    Intent intent = new Intent(Post.this, Feed.class);
+                    startActivity(intent);
 
 
                 }

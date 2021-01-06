@@ -36,5 +36,11 @@
         <item>gota</item>
         <item>bitenjena</item>
     </string-array>
+    <string-array name="kg">
+        <item>Kg</item>
+        <item>Tonne</item>
+        <item>Litre</item>
+        <item>Kl</item>
+    </string-array>
 
 </resources>

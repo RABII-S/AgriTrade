@@ -34,6 +34,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -53,17 +54,18 @@ import java.util.Locale;
 import java.util.Map;
 
 
-
 public class commande extends AppCompatActivity {
 
-    private static final String TAG ="ExamplesActivity";
-    Button envoyer, adr;
-    EditText editName,  Mobile, quantite;
+    private static final String TAG = "ExamplesActivity";
+    Button envoyer;
+    FloatingActionButton adr;
+    EditText editName, Mobile, quantite;
     EditText adresse;
     PostData postData;
     FirebaseFirestore db1;
     FusedLocationProviderClient fusedLocationProviderClient;
     String im;
+
     @GlideModule
     public class MyAppGlideModule extends AppGlideModule {
 
@@ -74,16 +76,17 @@ public class commande extends AppCompatActivity {
                     new FirebaseImageLoader.Factory());
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commande);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final ImageView img=(ImageView)findViewById(R.id.imagecom);
+        final ImageView img = (ImageView) findViewById(R.id.imagecom);
 
-         postData=(PostData) getIntent().getSerializableExtra("postD");
-         db1=FirebaseFirestore.getInstance();
-        im=getIntent().getStringExtra("image");
+        postData = (PostData) getIntent().getSerializableExtra("postD");
+        db1 = FirebaseFirestore.getInstance();
+        im = getIntent().getStringExtra("image");
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         storageReference.child(im).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -100,8 +103,8 @@ public class commande extends AppCompatActivity {
             }
         });
         envoyer = (Button) findViewById(R.id.envoyer22);
-        adr = (Button) findViewById(R.id.map);
-        adresse = (EditText) findViewById(R.id.adresse);
+        adr = (FloatingActionButton) findViewById(R.id.map);
+        adresse = (EditText) findViewById(R.id.adressey);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -119,16 +122,16 @@ public class commande extends AppCompatActivity {
             }
         });
 
-        editName = (EditText) findViewById(R.id.editName);
+        editName = (EditText) findViewById(R.id.editNamey);
         Mobile = (EditText) findViewById(R.id.Mobile);
-        quantite = (EditText) findViewById(R.id.quantite);
+        quantite = (EditText) findViewById(R.id.quantitey);
         Date currentTime = Calendar.getInstance().getTime();
         final String formattedDta = DateFormat.getDateInstance(DateFormat.FULL).format(currentTime);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
         envoyer.setOnClickListener(new View.OnClickListener() {
             @Override
-                public void onClick(View v) {
+            public void onClick(View v) {
 
                 Map<String, Object> submit = new HashMap<>();
                 submit.put("name", editName.getText().toString());
@@ -188,15 +191,12 @@ public class commande extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void getLocation() {
         Toast.makeText(getApplicationContext(), "yatik bechla", Toast.LENGTH_SHORT).show();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(), "hahfzere", Toast.LENGTH_SHORT).show();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -213,7 +213,7 @@ public class commande extends AppCompatActivity {
                 Location location = task.getResult();
                 Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_SHORT).show();
                 if (location != null) {
-                //    Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_SHORT).show();
 
                     try {
                         Geocoder geocoder = new Geocoder(commande.this,
