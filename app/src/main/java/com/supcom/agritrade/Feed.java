@@ -53,6 +53,7 @@ public class Feed extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
                                 PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(), document.getData().get("Description").toString(), document.getData().get("image").toString());
+                                p.setId(document.getId());
                                 contacts.add(p);
                                 adapter.notifyDataSetChanged();
 

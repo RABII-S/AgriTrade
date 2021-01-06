@@ -99,6 +99,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(ct ,commande.class);
+
+                PostData postData=captions.get(position);
+
+                intent.putExtra("postD",postData);
                 intent.putExtra("image",captions.get(position).getImage());
                 v.getContext().startActivity(intent);
 

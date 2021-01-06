@@ -11,4 +11,30 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_feed">Feed</string>
     <string name="title_activity_post">Post</string>
+    <string-array name="batata">
+        <item>batata</item>
+        <item>tmatem</item>
+        <item>sfenerya</item>
+        <item>bsal</item>
+        <item>khas</item>
+        <item>sal9</item>
+        <item>bitenjena</item>
+    </string-array>
+    <string-array name="ghala">
+        <item>tofeh</item>
+        <item>frez</item>
+        <item>3nib</item>
+        <item>delle3</item>
+        <item>pati5</item>
+        <item>panane</item>
+        <item>borgden</item>
+    </string-array>
+    <string-array name="autre">
+        <item>7lib</item>
+        <item>zit</item>
+        <item>lban</item>
+        <item>gota</item>
+        <item>bitenjena</item>
+    </string-array>
+
 </resources>

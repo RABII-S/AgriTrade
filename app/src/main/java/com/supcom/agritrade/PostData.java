@@ -2,11 +2,15 @@ package com.supcom.agritrade;
 
 import android.provider.ContactsContract;
 
+import com.google.firebase.firestore.Exclude;
+
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class PostData {
+public class PostData implements Serializable {
 
+    @Exclude private String id;
     private String Type;
     private String Price;
     private String Description;
@@ -20,6 +24,14 @@ public class PostData {
         this.Description = description;
         this.image = image;
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getType() {

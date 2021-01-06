@@ -1,14 +1,20 @@
 package com.supcom.agritrade;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.app.ProgressDialog;
 
@@ -27,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -36,49 +43,76 @@ public class Post extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 22;
     private Button btnChoose, Post;
     private ImageView imageView;
-
+    private Spinner sp;
     Uri filePath;
     String path;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReference();
     ProgressDialog pd;
-
-
+    private RadioGroup radio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-
-
-
-        final EditText Type = (EditText) findViewById(R.id.Type);
-        final EditText Price = (EditText) findViewById(R.id.Price);
-        final EditText Description = (EditText) findViewById(R.id.Description);
-         btnChoose = (Button) findViewById(R.id.btnChoose);
-         imageView = (ImageView) findViewById(R.id.imgView);
+        final EditText Price = (EditText) findViewById(R.id.prixx);
+        final EditText Description = (EditText) findViewById(R.id.ecrire);
+        btnChoose = (Button) findViewById(R.id.upload);
+        imageView = (ImageView) findViewById(R.id.taswira);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
-         Post = (Button) findViewById(R.id.Post);
+        Post = (Button) findViewById(R.id.post);
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseImage();
-
+            }
+        });
+        radio=(RadioGroup)findViewById(R.id.radiox);
+        sp=(Spinner)findViewById(R.id.sp);
+        radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int i=radio.getCheckedRadioButtonId();
+                // get selected radio button from radioGroup
+                int selectedId = radio.getCheckedRadioButtonId();
+                // find the radiobutton by returned id
+                RadioButton radioButton = (RadioButton) findViewById(selectedId);
+                String S=(String)radioButton.getText();
+                Resources res = getResources();
+                String[] d={};
+                if(S=="Legumes "){
+                     d = res.getStringArray(R.array.batata);
+                }
+                else{
+                    if(S=="fruit "){
+                        d = res.getStringArray(R.array.ghala);
+                    }
+                    else{
+                        if(S=="autre"){
+                            d = res.getStringArray(R.array.batata);
+                        }
+                    }
+                }
+                ArrayList<String> data=new ArrayList<>();
+                for(int u=0;u<d.length;++u){
+                    data.add(d[u]);
+                }
+                sp.setAdapter(new ArrayAdapter<String>(Post.this,android.R.layout.simple_spinner_dropdown_item,data));
+            }
+        });
+        sp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             }
         });
 
 
-
-
-
         Post.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 /*
                     if(filePath != null) {
                         Toast.makeText(Post.this, filePath.toString(), Toast.LENGTH_SHORT).show();
@@ -109,7 +143,7 @@ public class Post extends AppCompatActivity {
 */
                 uploadImage();
                 Map<String, Object> Post = new HashMap<>();
-                Post.put("Type", Type.getText().toString());
+
                 Post.put("Price", Price.getText().toString());
                 Post.put("Description", Description.getText().toString());
                 Post.put("image", path);
@@ -149,7 +183,7 @@ public class Post extends AppCompatActivity {
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null )
         {
-             filePath = data.getData();
+            filePath = data.getData();
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);

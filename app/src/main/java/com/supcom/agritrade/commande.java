@@ -14,6 +14,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -54,9 +56,12 @@ import java.util.Map;
 
 public class commande extends AppCompatActivity {
 
+    private static final String TAG ="ExamplesActivity";
     Button envoyer, adr;
     EditText editName,  Mobile, quantite;
     EditText adresse;
+    PostData postData;
+    FirebaseFirestore db1;
     FusedLocationProviderClient fusedLocationProviderClient;
     String im;
     @GlideModule
@@ -76,6 +81,8 @@ public class commande extends AppCompatActivity {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final ImageView img=(ImageView)findViewById(R.id.imagecom);
 
+         postData=(PostData) getIntent().getSerializableExtra("postD");
+         db1=FirebaseFirestore.getInstance();
 
         im=getIntent().getStringExtra("image");
         Toast.makeText(getApplicationContext(), im, Toast.LENGTH_SHORT).show();
@@ -154,6 +161,25 @@ public class commande extends AppCompatActivity {
 
             }
         });
+
+        final DocumentReference docRef =FirebaseFirestore.getInstance().collection("Posts").document(postData.getId());
+        Map<String,Object> map=new HashMap<>();
+
+        String n="120kg";
+       map.put("Description",n);
+
+        docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG,"on Success");
+            }
+        })
+          .addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception e) {
+                  Log.e(TAG,"Onfailure",e);
+              }
+          });
 
 
     }
