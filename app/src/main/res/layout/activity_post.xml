@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:text="Image"
         android:id="@+id/image"
-        android:layout_below="@+id/prix"
+        android:layout_below="@+id/Description"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="27dp"
         android:textSize="30sp"
@@ -78,23 +78,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
-        android:layout_below="@+id/image"
+        android:text="Quantité"
+        android:layout_below="@+id/prix"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="27dp"
         android:textSize="30sp"
         android:id="@+id/Description"
         android:fontFamily="@font/averia_libre_light_italic"/>
     <EditText
-        android:layout_width="210dp"
+        android:layout_width="165dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Description"
+        android:layout_below="@+id/prix"
+        android:layout_toRightOf="@id/prix"
         android:layout_marginLeft="80dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="24dp"
         android:textSize="22sp"
-        android:lines="3"
+        android:lines="1"
         android:id="@+id/ecrire"
-        android:hint="ecrire ici"
+        android:hint="Quantité en Kg"
         android:fontFamily="@font/averia_libre_light_italic"/>
     <RadioGroup
         android:layout_width="wrap_content"
@@ -136,23 +137,26 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/select"
         android:entries="@array/batata"
-        android:layout_above="@+id/prix"
+        android:layout_below="@id/Type"
+        android:layout_marginTop="27dp"
         android:layout_marginLeft="75dp"
         android:id="@+id/sp"
         />
     <EditText
-        android:layout_width="150dp"
+        android:layout_width="165dp"
         android:layout_height="wrap_content"
-        android:hint="donne le prix"
+        android:hint="Donner le prix de Kg"
         android:id="@+id/prixx"
         android:layout_below="@+id/select"
         android:layout_toRightOf="@+id/prix"
         android:layout_marginLeft="80dp"
-        android:layout_marginTop="27dp"/>
+        android:inputType="number"
+        android:lines="1"
+        android:layout_marginTop="24dp"/>
     <Button
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/prix"
+        android:layout_below="@+id/Description"
         android:layout_marginTop="27dp"
         android:layout_toRightOf="@+id/image"
         android:layout_marginLeft="88dp"
@@ -162,10 +166,10 @@
     <Button
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/ecrire"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/image"
+        android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
-        android:text="Post"
+        android:text="Publier"
         android:id="@+id/post" />
 
     <ProgressBar

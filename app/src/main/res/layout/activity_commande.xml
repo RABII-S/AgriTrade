@@ -15,6 +15,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="16dp"
+        android:src="@drawable/ic_launcher_background"
         tools:ignore="MissingConstraints" />
 
     <LinearLayout
@@ -58,8 +59,7 @@
 
                 android:paddingLeft="15dp"
                 android:singleLine="true"
-                android:textColor="#000"
-                android:textColorHint="#000" />
+                android:textColor="#000"/>
 
             <EditText
                 android:id="@+id/Mobile"
@@ -68,12 +68,11 @@
                 android:layout_marginTop="20dp"
                 android:background="#ffffff"
                 android:hint="Phone Number "
-
+                android:inputType="number"
                 android:maxLength="10"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
-                android:textColor="#000"
-                android:textColorHint="#000" />
+                android:textColor="#000"/>
 
             <EditText
                 android:id="@+id/quantite"
@@ -82,12 +81,11 @@
                 android:layout_marginTop="20dp"
                 android:background="#ffffff"
                 android:hint="quantité "
-
+                android:inputType="number"
                 android:maxLength="10"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
-                android:textColor="#000"
-                android:textColorHint="#000" />
+                android:textColor="#000" />
 
             <EditText
                 android:id="@+id/adresse"
@@ -101,17 +99,14 @@
                 android:maxLength="10"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
-                android:textColor="#000"
-                android:textColorHint="#000" />
+                android:textColor="#000" />
 
             <Button
                 android:id="@+id/map"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginRight="200dp"
-
                 android:text="Map" />
-
 
         </LinearLayout>
 
