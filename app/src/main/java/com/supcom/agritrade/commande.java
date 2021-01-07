@@ -194,7 +194,6 @@ public class commande extends AppCompatActivity {
     }
 
     private void getLocation() {
-        Toast.makeText(getApplicationContext(), "yatik bechla", Toast.LENGTH_SHORT).show();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -209,9 +208,9 @@ public class commande extends AppCompatActivity {
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
-                Toast.makeText(getApplicationContext(), "naje7", Toast.LENGTH_SHORT).show();
+
                 Location location = task.getResult();
-                Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_SHORT).show();
+
                 if (location != null) {
                     //    Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_SHORT).show();
 
@@ -221,6 +220,7 @@ public class commande extends AppCompatActivity {
                         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                         adresse.setText(Html.fromHtml("<font color='#6200EE'><b>Addresses:</b><br></font>"
                                 + addresses.get(0).getAddressLine(0)));
+
 
                     } catch (IOException e) {
                         e.printStackTrace();

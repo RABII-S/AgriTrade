@@ -29,7 +29,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@+id/taswira"
                 android:fontFamily="More Fonts..."
-                android:text="le type est le batata avec un prix 15DT le kilo description ..."
+                android:text=""
                 android:textSize="20sp"
                 android:textStyle="normal" />
         </RelativeLayout>
