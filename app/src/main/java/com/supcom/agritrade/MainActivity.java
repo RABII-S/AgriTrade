@@ -33,7 +33,6 @@ public class MainActivity extends Activity  {
     Button b1,b2;
     EditText ed1,ed2;
 
-    TextView tx1;
     int counter = 3;
     private FirebaseAuth auth;
 
@@ -53,8 +52,6 @@ public class MainActivity extends Activity  {
         ed2 = (EditText) findViewById(R.id.editText2);
         ed2.setText("123456");
 
-        tx1 = (TextView) findViewById(R.id.textView3);
-        tx1.setVisibility(View.GONE);
 
         auth = FirebaseAuth.getInstance();
 

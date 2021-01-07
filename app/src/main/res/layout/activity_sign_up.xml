@@ -3,13 +3,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#FFFFFF"
+    android:background="@drawable/k"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
     tools:context=".MainActivity" >
 
 
@@ -18,68 +14,122 @@
         android:layout_height="wrap_content"
         android:text="Sign Up"
         android:id="@+id/signup"
+        android:fontFamily="@font/averia_libre_bold_italic"
         android:layout_marginTop="100dp"
+        android:textColor="#E6000000"
         android:layout_centerHorizontal="true"
         android:textSize="60dp" />
 
+    <EditText
 
+        android:id="@+id/nom"
+        android:background="@drawable/edittextrounded"
+        android:layout_width="320dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/signup"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:focusable="true"
+        android:hint="    Nom"/>
 
+    <EditText
+
+        android:id="@+id/prenom"
+        android:background="@drawable/edittextrounded"
+        android:layout_width="320dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/nom"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:focusable="true"
+        android:hint="    Prénom"/>
 
     <EditText
 
         android:id="@+id/editText"
-        android:background="#B0DAC8"
-        android:layout_width="wrap_content"
+        android:background="@drawable/edittextrounded"
+        android:layout_width="320dp"
         android:layout_height="30dp"
-        android:layout_below="@+id/signup"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-
-        android:layout_marginTop="60dp"
+        android:layout_below="@+id/prenom"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
         android:focusable="true"
-        android:hint="Email"
-        android:textColorHighlight="#DD2F61"
-        android:textColorHint="#0D47A1" />
-
-
+        android:hint="    Email"/>
 
     <EditText
-        android:layout_width="wrap_content"
-        android:background="#B0DAC8"
+        android:layout_width="320dp"
+        android:background="@drawable/edittextrounded"
         android:layout_height="30dp"
         android:inputType="textPassword"
+        android:layout_centerHorizontal="true"
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_marginTop="15dp"
         android:layout_below="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText"
-        android:textColorHighlight="#DD2F61"
-        android:textColorHint="#3F51B5"
-        android:hint="Password" />
+        android:hint="    Password" />
 
+    <EditText
 
+        android:id="@+id/local"
+        android:background="@drawable/edittextrounded"
+        android:layout_width="320dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:focusable="true"
+        android:hint="    Localisation"/>
 
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/local"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/averia_libre_bold_italic"
+        android:text="Gender"
+        android:textColor="#E6000000"
+        android:textSize="30sp" />
 
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/local"
+        android:layout_marginTop="29dp"
+        android:layout_toRightOf="@+id/gender"
+        android:layout_marginLeft="24dp"
+        android:id="@+id/malefemale"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:fontFamily="@font/averia_libre_light_italic"
+            android:text="Male       "
+            android:textSize="17sp"
+            android:textColor="#000000"
+            android:id="@+id/male"
+            ></RadioButton>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/averia_libre_light_italic"
+            android:text="Female "
+            android:textSize="17sp"
+            android:id="@+id/female"
+            ></RadioButton>
+    </RadioGroup>
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#B0DAC8"
+        android:layout_height="44dp"
+        android:background="@drawable/button"
         android:text="REGISTER"
         android:id="@+id/button"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/editText2"
-        android:layout_centerHorizontal="true"
-
-
-        ></Button>
-
-
-
-
+        android:layout_below="@+id/malefemale"
+        android:layout_centerHorizontal="true"></Button>
 
 </RelativeLayout>
