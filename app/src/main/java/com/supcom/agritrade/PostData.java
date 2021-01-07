@@ -10,21 +10,27 @@ import java.util.ArrayList;
 
 public class PostData implements Serializable {
 
-    @Exclude private String id;
+    @Exclude
+    private String id;
     private String Type;
     private String Price;
     private String Description;
+    private String unite;
     private String image;
+    private String date;
     static ArrayList<PostData> contacts = new ArrayList<PostData>();
 
 
-    PostData(String type, String price, String description, String image) {
+    PostData(String type, String price, String q, String image,String u,String date) {
         this.Type = type;
         this.Price = price;
-        this.Description = description;
+        this.Description = q;
         this.image = image;
-
+        unite=u;
+        this.date=date;
     }
+
+    public String getDate() {  return date;  }
 
     public String getId() {
         return id;
@@ -42,18 +48,15 @@ public class PostData implements Serializable {
         return Price;
     }
 
-    public String getDescription() {
-        return Description;
-    }
+    public String getDescription() {  return Description;  }
+
+    public String getUnite() { return unite;  }
 
     public String getImage() {
         return image;
     }
 
-    public static ArrayList<PostData> getContactsList() {
-
-        return contacts;
-    }
+    public static ArrayList<PostData> getContactsList() { return contacts; }
 
     public static void AddToContactsList(PostData p) {
         contacts.add(p);

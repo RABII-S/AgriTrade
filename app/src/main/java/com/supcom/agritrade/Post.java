@@ -3,6 +3,7 @@ package com.supcom.agritrade;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -21,6 +23,7 @@ import android.app.ProgressDialog;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +36,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -43,18 +49,21 @@ public class Post extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 22;
     private Button btnChoose, Post;
     private ImageView imageView;
-    private Spinner sp;
+    private Spinner sp,spkg;
+    private String Type,unite;
     Uri filePath;
     String path;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReference();
     ProgressDialog pd;
     private RadioGroup radio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         final EditText Price = (EditText) findViewById(R.id.prixx);
         final EditText Description = (EditText) findViewById(R.id.ecrire);
         btnChoose = (Button) findViewById(R.id.upload);
@@ -69,85 +78,93 @@ public class Post extends AppCompatActivity {
                 chooseImage();
             }
         });
-        radio=(RadioGroup)findViewById(R.id.radiox);
-        sp=(Spinner)findViewById(R.id.sp);
+        radio = (RadioGroup) findViewById(R.id.radiox);
+        sp = (Spinner) findViewById(R.id.sp);
+        spkg=(Spinner)findViewById(R.id.spkg);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.batata, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+// Apply the adapter to the spinner
+        sp.setAdapter(adapter);
+
+        //  sp.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+
         radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int i=radio.getCheckedRadioButtonId();
+                int i = radio.getCheckedRadioButtonId();
                 // get selected radio button from radioGroup
                 int selectedId = radio.getCheckedRadioButtonId();
                 // find the radiobutton by returned id
                 RadioButton radioButton = (RadioButton) findViewById(selectedId);
-                String S=(String)radioButton.getText();
+                String S = (String) radioButton.getText();
                 Resources res = getResources();
-                String[] d={};
-                if(S=="Legumes "){
-                     d = res.getStringArray(R.array.batata);
-                }
-                else{
-                    if(S=="fruit "){
-                        d = res.getStringArray(R.array.ghala);
-                    }
-                    else{
-                        if(S=="autre"){
-                            d = res.getStringArray(R.array.batata);
+                String[] d = {};
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(Post.this,
+                        R.array.batata, android.R.layout.simple_spinner_item);
+                ;
+                if (S.equals("Legumes ")) {
+                    adapter = ArrayAdapter.createFromResource(Post.this,
+                            R.array.batata, android.R.layout.simple_spinner_item);
+
+                } else {
+                    if (S.equals("fruit ")) {
+
+                        adapter = ArrayAdapter.createFromResource(Post.this,
+                                R.array.ghala, android.R.layout.simple_spinner_item);
+
+
+                    } else {
+                        if (S.equals("autre")) {
+
+                            adapter = ArrayAdapter.createFromResource(Post.this, R.array.autre, android.R.layout.simple_spinner_item);
+
+// Apply the adapter to the spinner
+
                         }
                     }
                 }
-                ArrayList<String> data=new ArrayList<>();
-                for(int u=0;u<d.length;++u){
-                    data.add(d[u]);
-                }
-                sp.setAdapter(new ArrayAdapter<String>(Post.this,android.R.layout.simple_spinner_dropdown_item,data));
-            }
-        });
-        sp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                sp.setAdapter(adapter);
             }
         });
 
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Type = parent.getItemAtPosition(position).toString();
+
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spkg.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                unite = parent.getItemAtPosition(position).toString();
+            } // to close the onItemSelected
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         Post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                    if(filePath != null) {
-                        Toast.makeText(Post.this, filePath.toString(), Toast.LENGTH_SHORT).show();
-                        pd.show();
-
-                        StorageReference childRef = storageRef.child("image.jpg");
-
-                        //uploading the image
-                        UploadTask uploadTask = childRef.putFile(filePath);
-
-                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                pd.dismiss();
-                                Toast.makeText(Post.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                pd.dismiss();
-                                Toast.makeText(Post.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    else {
-                        Toast.makeText(Post.this, "Select an image", Toast.LENGTH_SHORT).show();
-                    }
-*/
+                ProgressBar p = findViewById(R.id.prog);
+                p.setVisibility(View.VISIBLE);
+                Date currentTime = Calendar.getInstance().getTime();
+                final String formattedDta = DateFormat.getDateInstance(DateFormat.MEDIUM).format(currentTime);
                 uploadImage();
                 Map<String, Object> Post = new HashMap<>();
-
+                Post.put("Type", Type);
                 Post.put("Price", Price.getText().toString());
                 Post.put("Description", Description.getText().toString());
                 Post.put("image", path);
-
+                Post.put("Date",formattedDta);
+                Post.put("unite",unite);
                 Post.put("UserID", currentUser.getUid());
 
                 db.collection("Posts").document()
@@ -156,8 +173,7 @@ public class Post extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(getApplicationContext(), "Posted", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Post.this, Feed.class);
-                                startActivity(intent);
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -167,7 +183,7 @@ public class Post extends AppCompatActivity {
                             }
                         });
 
-
+                p.setVisibility(View.GONE);
             }
         });
     }
@@ -197,7 +213,7 @@ public class Post extends AppCompatActivity {
 
     private void uploadImage() {
         if (filePath != null) {
-            Toast.makeText(Post.this, "haha" + filePath.toString(), Toast.LENGTH_SHORT).show();
+
             // Code for showing progressDialog while uploading
 
             path = "images/" + UUID.randomUUID().toString();
@@ -226,6 +242,8 @@ public class Post extends AppCompatActivity {
                                     "Image Uploaded!!",
                                     Toast.LENGTH_SHORT)
                             .show();
+                    Intent intent = new Intent(Post.this, Feed.class);
+                    startActivity(intent);
 
 
                 }

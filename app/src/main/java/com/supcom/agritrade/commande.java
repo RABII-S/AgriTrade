@@ -34,6 +34,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -53,17 +54,18 @@ import java.util.Locale;
 import java.util.Map;
 
 
-
 public class commande extends AppCompatActivity {
 
-    private static final String TAG ="ExamplesActivity";
-    Button envoyer, adr;
-    EditText editName,  Mobile, quantite;
+    private static final String TAG = "ExamplesActivity";
+    Button envoyer;
+    FloatingActionButton adr;
+    EditText editName, Mobile, quantite;
     EditText adresse;
     PostData postData;
     FirebaseFirestore db1;
     FusedLocationProviderClient fusedLocationProviderClient;
     String im;
+
     @GlideModule
     public class MyAppGlideModule extends AppGlideModule {
 
@@ -74,18 +76,17 @@ public class commande extends AppCompatActivity {
                     new FirebaseImageLoader.Factory());
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commande);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final ImageView img=(ImageView)findViewById(R.id.imagecom);
+        final ImageView img = (ImageView) findViewById(R.id.imagecom);
 
-         postData=(PostData) getIntent().getSerializableExtra("postD");
-         db1=FirebaseFirestore.getInstance();
-
-        im=getIntent().getStringExtra("image");
-        Toast.makeText(getApplicationContext(), im, Toast.LENGTH_SHORT).show();
+        postData = (PostData) getIntent().getSerializableExtra("postD");
+        db1 = FirebaseFirestore.getInstance();
+        im = getIntent().getStringExtra("image");
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         storageReference.child(im).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -102,8 +103,8 @@ public class commande extends AppCompatActivity {
             }
         });
         envoyer = (Button) findViewById(R.id.envoyer22);
-        adr = (Button) findViewById(R.id.map);
-        adresse = (EditText) findViewById(R.id.adresse);
+        adr = (FloatingActionButton) findViewById(R.id.map);
+        adresse = (EditText) findViewById(R.id.adressey);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -121,74 +122,80 @@ public class commande extends AppCompatActivity {
             }
         });
 
-        editName = (EditText) findViewById(R.id.editName);
+        editName = (EditText) findViewById(R.id.editNamey);
         Mobile = (EditText) findViewById(R.id.Mobile);
-        quantite = (EditText) findViewById(R.id.quantite);
+        quantite = (EditText) findViewById(R.id.quantitey);
         Date currentTime = Calendar.getInstance().getTime();
         final String formattedDta = DateFormat.getDateInstance(DateFormat.FULL).format(currentTime);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
         envoyer.setOnClickListener(new View.OnClickListener() {
             @Override
-                public void onClick(View v) {
+            public void onClick(View v) {
 
                 Map<String, Object> submit = new HashMap<>();
                 submit.put("name", editName.getText().toString());
                 submit.put("tel", Mobile.getText().toString());
                 submit.put("quantite", quantite.getText().toString());
                 submit.put("date", formattedDta);
-                submit.put("adresse",adresse.getText().toString());
+                submit.put("adresse", adresse.getText().toString());
 
                 submit.put("UserID", currentUser.getUid());
 
-                db.collection("commandes").document()
-                        .set(submit)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getApplicationContext(), "Posted", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(commande.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
 
-                                Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                final DocumentReference docRef = FirebaseFirestore.getInstance().collection("Posts").document(postData.getId());
+                Map<String, Object> map = new HashMap<>();
+
+                Integer n = Integer.parseInt(quantite.getText().toString());
+
+                Integer currentN = Integer.parseInt(postData.getDescription());
+                if (n <= currentN) {
+
+                    map.put("Description", currentN - n);
+                    docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "on Success");
+                        }
+                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e(TAG, "Onfailure", e);
+                                }
+                            });
+
+                    db.collection("commandes").document()
+                            .set(submit)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "une quantitée de " + quantite.getText().toString() + " a été commandée", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(commande.this, Feed.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                    Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "La quantité ordonnée est supérieur a la quantitée disponible", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
-
-        final DocumentReference docRef =FirebaseFirestore.getInstance().collection("Posts").document(postData.getId());
-        Map<String,Object> map=new HashMap<>();
-
-        String n="120kg";
-       map.put("Description",n);
-
-        docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG,"on Success");
-            }
-        })
-          .addOnFailureListener(new OnFailureListener() {
-              @Override
-              public void onFailure(@NonNull Exception e) {
-                  Log.e(TAG,"Onfailure",e);
-              }
-          });
 
 
     }
 
     private void getLocation() {
-        Toast.makeText(getApplicationContext(), "yatik bechla", Toast.LENGTH_SHORT).show();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(), "hahfzere", Toast.LENGTH_SHORT).show();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -201,11 +208,11 @@ public class commande extends AppCompatActivity {
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
-                Toast.makeText(getApplicationContext(), "naje7", Toast.LENGTH_SHORT).show();
+
                 Location location = task.getResult();
-                Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_SHORT).show();
+
                 if (location != null) {
-                //    Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_SHORT).show();
 
                     try {
                         Geocoder geocoder = new Geocoder(commande.this,
@@ -213,6 +220,7 @@ public class commande extends AppCompatActivity {
                         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                         adresse.setText(Html.fromHtml("<font color='#6200EE'><b>Addresses:</b><br></font>"
                                 + addresses.get(0).getAddressLine(0)));
+
 
                     } catch (IOException e) {
                         e.printStackTrace();

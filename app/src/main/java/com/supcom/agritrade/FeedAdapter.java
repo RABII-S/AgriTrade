@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,19 +46,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     private LinearLayout post;
 
     public static class ViewHolder extends RecyclerView.ViewHolder  {
-        Button choose;
         private CardView cardView;
-
-        public ViewHolder(CardView v) {
+        private TextView type;
+        private TextView prix;
+        private TextView quantite;
+        private ImageView image;
+        private TextView date;
+        public ViewHolder(View v) {
             super(v);
-            cardView = v;
-            choose =(Button) cardView.findViewById(R.id.button2);
-
+            cardView=v.findViewById(R.id.cardView);
+            image=v.findViewById(R.id.taswira);
+            type=v.findViewById(R.id.typeex);
+            prix=v.findViewById(R.id.prixdelunitex);
+            date=v.findViewById(R.id.datex);
+            quantite=v.findViewById(R.id.quantitedisponiblex);
         }
-
-
     }
-
 
     public FeedAdapter(List<PostData> captions, Context ct) {
         this.captions = captions;
@@ -66,15 +70,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     @Override
     public FeedAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CardView cv = (CardView) LayoutInflater.from(parent.getContext())
+        View cv = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.post_card, parent, false);
-
-
-
-
-
         return new ViewHolder(cv);
-
     }
 
 
@@ -90,12 +88,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FeedAdapter.ViewHolder holder, final int position) {
-        CardView cardView = holder.cardView;
-        TextView textView = (TextView) cardView.findViewById(R.id.TypeF);
-        TextView textView2 = (TextView) cardView.findViewById(R.id.PriceF);
-        TextView textView3 = (TextView) cardView.findViewById(R.id.DescriptionF);
-        holder.choose.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(@NonNull final FeedAdapter.ViewHolder holder, final int position) {
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(ct ,commande.class);
@@ -110,17 +105,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             }
         });
 
-
-
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-
-        final ImageView image = (ImageView) cardView.findViewById(R.id.imageViewC);
         storageReference.child(captions.get(position).getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(ct)
                         .load(uri)
-                        .into(image);
+                        .into(holder.image);
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -129,11 +120,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 // Handle any errors
             }
         });
-
-
-        textView.setText(captions.get(position).getType());
-        textView2.setText(captions.get(position).getPrice());
-        textView3.setText(captions.get(position).getDescription());
+        holder.type.setText(captions.get(position).getType());
+        holder.prix.setText(captions.get(position).getPrice()+" DT/"+captions.get(position).getUnite());
+        holder.quantite.setText(captions.get(position).getDescription()+" "+captions.get(position).getUnite());
+        holder.date.setText(captions.get(position).getDate());
     }
 
     @Override

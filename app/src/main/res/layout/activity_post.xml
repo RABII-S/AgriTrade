@@ -29,7 +29,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_toRightOf="@+id/taswira"
                 android:fontFamily="More Fonts..."
-                android:text="le type est le batata avec un prix 15DT le kilo description ..."
+                android:text=""
                 android:textSize="20sp"
                 android:textStyle="normal" />
         </RelativeLayout>
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/card"
         android:layout_marginTop="25dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="20dp"
         android:fontFamily="@font/averia_libre_light_italic"
         android:text="Type"
         android:textSize="30sp"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:text="Select"
         android:layout_below="@+id/Type"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="27dp"
         android:textSize="30sp"
         android:id="@+id/select"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:text="Prix"
         android:layout_below="@+id/select"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="27dp"
         android:textSize="30sp"
         android:id="@+id/prix"
@@ -70,32 +70,42 @@
         android:layout_height="wrap_content"
         android:text="Image"
         android:id="@+id/image"
-        android:layout_below="@+id/prix"
-        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/Description"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="27dp"
         android:textSize="30sp"
         android:fontFamily="@font/averia_libre_light_italic"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
-        android:layout_below="@+id/image"
-        android:layout_marginLeft="40dp"
+        android:text="Quantité"
+        android:layout_below="@+id/prix"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="27dp"
         android:textSize="30sp"
         android:id="@+id/Description"
         android:fontFamily="@font/averia_libre_light_italic"/>
     <EditText
-        android:layout_width="210dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Description"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="5dp"
-        android:textSize="22sp"
-        android:lines="3"
+        android:layout_below="@+id/prix"
+        android:layout_toRightOf="@id/prix"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="24dp"
+        android:textSize="20sp"
+        android:singleLine="true"
         android:id="@+id/ecrire"
-        android:hint="ecrire ici"
+        android:inputType="number"
         android:fontFamily="@font/averia_libre_light_italic"/>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/prix"
+        android:layout_toRightOf="@id/ecrire"
+        android:layout_marginTop="29dp"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/spkg"
+        android:entries="@array/kg"/>
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -135,36 +145,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/select"
-        android:entries="@array/batata"
-        android:layout_above="@+id/prix"
+        android:layout_below="@id/Type"
+        android:layout_marginTop="27dp"
         android:layout_marginLeft="75dp"
         android:id="@+id/sp"
         />
     <EditText
-        android:layout_width="150dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
-        android:hint="donne le prix"
         android:id="@+id/prixx"
         android:layout_below="@+id/select"
         android:layout_toRightOf="@+id/prix"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="27dp"/>
+        android:layout_marginLeft="85dp"
+        android:inputType="number"
+        android:singleLine="true"
+        android:textSize="17sp"
+        android:layout_marginTop="24dp"/>
     <Button
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/prix"
+        android:layout_below="@+id/Description"
         android:layout_marginTop="27dp"
         android:layout_toRightOf="@+id/image"
         android:layout_marginLeft="88dp"
         android:text="Upload"
-        android:id="@+id/upload"/>
+
+        android:textColor="#FFF"
+        android:id="@+id/upload" />
+
     <Button
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/ecrire"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/image"
+        android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
-        android:text="Post"
-        android:id="@+id/post"/>
+        android:text="Publier"
+        android:id="@+id/post" />
 
+    <ProgressBar
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:id="@+id/prog" />
 </RelativeLayout>

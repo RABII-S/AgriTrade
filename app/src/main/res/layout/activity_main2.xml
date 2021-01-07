@@ -30,8 +30,7 @@
         android:layout_marginTop="67dp"
         android:layout_marginEnd="173dp"
         android:layout_marginRight="173dp"
-        android:fontFamily="sans-serif-black"
-
+        android:fontFamily="@font/averia_libre_light_italic"
         android:text="WELCOME"
         android:textColor="#000"
         android:textSize="40dp"
