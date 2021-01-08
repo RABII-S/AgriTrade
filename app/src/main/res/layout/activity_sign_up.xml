@@ -30,7 +30,8 @@
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
         android:focusable="true"
-        android:hint="    Nom"/>
+        android:hint="Nom"
+        android:paddingLeft="18dp"/>
 
     <EditText
 
@@ -42,7 +43,8 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:focusable="true"
-        android:hint="    Prénom"/>
+        android:hint="Prénom"
+        android:paddingLeft="18dp"/>
 
     <EditText
 
@@ -54,7 +56,8 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:focusable="true"
-        android:hint="    Email"/>
+        android:paddingLeft="18dp"
+        android:hint="Email"/>
 
     <EditText
         android:layout_width="320dp"
@@ -66,7 +69,8 @@
         android:id="@+id/editText2"
         android:layout_marginTop="15dp"
         android:layout_below="@+id/editText"
-        android:hint="    Password" />
+        android:paddingLeft="18dp"
+        android:hint="Password" />
 
     <EditText
 
@@ -78,7 +82,8 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:focusable="true"
-        android:hint="    Localisation"/>
+        android:paddingLeft="18dp"
+        android:hint="Localisation"/>
 
     <TextView
         android:id="@+id/gender"

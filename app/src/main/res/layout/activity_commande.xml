@@ -64,7 +64,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:text="commande"
-        android:textSize="30sp" />
+        android:fontFamily="@font/averia_libre_bold_italic"
+        android:textSize="39sp" />
 
     <EditText
         android:layout_width="190dp"
@@ -127,11 +128,12 @@
         android:layout_width="135dp"
         android:layout_height="52dp"
         android:layout_below="@id/addressx"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:layout_toRightOf="@+id/addressx"
-        android:layout_centerHorizontal="true"
+        android:background="#FFFFFF"
         android:backgroundTint="#3DDC84"
-        android:textColor="#FFF"
-        android:text="Commander" />
+        android:text="Commander"
+        android:textColor="#FFF" />
 
 </RelativeLayout>
