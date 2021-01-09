@@ -3,8 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/jj"
+    android:padding="24dp">
 
+    <TextView
+        android:id="@+id/commandee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="commande"
+        android:fontFamily="@font/aclonica"
+        android:textSize="39sp"
+        android:textColor="#FAF6F6"
+        />
     <ImageView
         android:id="@+id/imagecom"
         android:layout_width="match_parent"
@@ -13,17 +26,23 @@
         android:src="@drawable/ic_launcher_background"
         android:layout_marginBottom="10dp"
        />
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roundlayout"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/imagecom"
+        android:layout_marginBottom="20dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imagecom"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="20dp"
         android:fontFamily="@font/averia_libre_light_italic"
         android:text="Full name"
         android:textSize="30sp"
         android:id="@+id/fullnamex"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,16 +75,6 @@
         android:id="@+id/addressx"/>
     //android:id="@+id/commande"
 
-
-    <TextView
-        android:id="@+id/commandee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:text="commande"
-        android:fontFamily="@font/averia_libre_bold_italic"
-        android:textSize="39sp" />
 
     <EditText
         android:layout_width="190dp"
@@ -101,14 +110,14 @@
         android:maxLength="10"
         android:textSize="17sp"/>
     <EditText
-        android:layout_width="149dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:id="@+id/adressey"
         android:layout_below="@+id/quantitex"
         android:layout_toRightOf="@+id/fullnamex"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="25dp"
-        android:singleLine="true"
+        android:lines="2"
         android:textSize="17sp"/>
 
 
@@ -120,8 +129,7 @@
         android:layout_marginLeft="7dp"
         android:layout_marginTop="29dp"
         android:layout_toRightOf="@+id/adressey"
-        android:src="@drawable/ic_loca4"
-        app:backgroundTint="#3DDC84" />
+        android:src="@drawable/ic_loca4" />
 
     <Button
         android:id="@+id/envoyer22"
@@ -129,11 +137,11 @@
         android:layout_height="52dp"
         android:layout_below="@id/addressx"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="28dp"
         android:layout_toRightOf="@+id/addressx"
-        android:background="#FFFFFF"
-        android:backgroundTint="#3DDC84"
+        android:background="@drawable/button"
         android:text="Commander"
-        android:textColor="#FFF" />
-
+        android:layout_marginBottom="20dp"
+        android:textColor="#F1E6E6" />
+    </RelativeLayout>
 </RelativeLayout>

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background=""
+    android:background="@mipmap/jj"
     tools:context=".MainActivity"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFFFF"
+        android:background="#F5FFFFFF"
         android:padding="20dp">
 
 
@@ -83,6 +83,6 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_add1"
         android:clickable="true"
-        android:backgroundTint="#000"/>
+        android:backgroundTint="#CCB75457"/>
 </RelativeLayout>
 </LinearLayout>
