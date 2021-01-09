@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp">
-
+    android:background="@mipmap/whe"
+    android:padding="15dp">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="130dp"
@@ -13,6 +13,7 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
         android:id="@+id/card"
+        android:backgroundTint="#DCF4F4F4"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -24,31 +25,109 @@
                 android:id="@+id/taswira"/>
 
             <TextView
+                android:id="@+id/qx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="9dp"
+                android:layout_toRightOf="@+id/q"
+                android:layout_below="@+id/p"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/averia_libre_bold"
+                android:text="1000 Kg"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:id="@+id/px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/p"
+                android:layout_below="@+id/t"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/averia_libre_bold"
+                android:text="5 DT/Kg"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_toRightOf="@+id/t"
+                android:layout_above="@+id/p"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/averia_libre_bold"
+                android:text="batata"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 jan 2020"
+                android:fontFamily="@font/averia_libre_bold"
+                android:layout_below="@+id/q"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="10dp"
+                android:textSize="12sp"
+                android:id="@+id/dx"
+                />
+            <TextView
+                android:id="@+id/t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="22dp"
                 android:layout_toRightOf="@+id/taswira"
-                android:fontFamily="More Fonts..."
-                android:text=""
-                android:textSize="20sp"
-                android:textStyle="normal" />
+                android:fontFamily="@font/averia_libre_light"
+                android:text="Type :"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/t"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/taswira"
+                android:fontFamily="@font/averia_libre_light"
+                android:text="Prix :"
+                android:id="@+id/p"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/p"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/taswira"
+                android:fontFamily="@font/averia_libre_light"
+                android:text="Quantité  :"
+                android:id="@+id/q"
+                android:textSize="15sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/roundlayout"
+    android:layout_marginTop="240dp"
+    android:layout_marginBottom="20dp"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/card"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="19dp"
         android:layout_marginLeft="20dp"
         android:fontFamily="@font/averia_libre_light_italic"
         android:text="Type"
+        android:textColor="#BA000000"
         android:textSize="30sp"
         android:id="@+id/Type"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select"
+        android:textColor="#BA000000"
         android:layout_below="@+id/Type"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="27dp"
@@ -62,6 +141,7 @@
         android:layout_below="@+id/select"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="27dp"
+        android:textColor="#BA000000"
         android:textSize="30sp"
         android:id="@+id/prix"
         android:fontFamily="@font/averia_libre_light_italic"/>
@@ -69,6 +149,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Image"
+        android:textColor="#BA000000"
         android:id="@+id/image"
         android:layout_below="@+id/Description"
         android:layout_marginLeft="20dp"
@@ -83,6 +164,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="27dp"
         android:textSize="30sp"
+        android:textColor="#BA000000"
         android:id="@+id/Description"
         android:fontFamily="@font/averia_libre_light_italic"/>
     <EditText
@@ -96,6 +178,7 @@
         android:singleLine="true"
         android:id="@+id/ecrire"
         android:inputType="number"
+        android:textColor="#BA000000"
         android:fontFamily="@font/averia_libre_light_italic"/>
     <Spinner
         android:layout_width="wrap_content"
@@ -103,6 +186,7 @@
         android:layout_below="@+id/prix"
         android:layout_toRightOf="@id/ecrire"
         android:layout_marginTop="29dp"
+        android:textColor="#BA000000"
         android:layout_marginLeft="5dp"
         android:id="@+id/spkg"
         android:entries="@array/kg"/>
@@ -123,12 +207,14 @@
             android:text="Legumes "
             android:textSize="17sp"
             android:id="@+id/radio1"
+            android:textColor="#BA000000"
             ></RadioButton>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/averia_libre_light_italic"
             android:text="fruit "
+            android:textColor="#BA000000"
             android:textSize="17sp"
             android:id="@+id/radio2"
             ></RadioButton>
@@ -138,6 +224,7 @@
             android:fontFamily="@font/averia_libre_light_italic"
             android:text="autre"
             android:textSize="17sp"
+            android:textColor="#BA000000"
             android:id="@+id/radio3"
             ></RadioButton>
     </RadioGroup>
@@ -148,6 +235,7 @@
         android:layout_below="@id/Type"
         android:layout_marginTop="27dp"
         android:layout_marginLeft="75dp"
+        android:textColor="#BA000000"
         android:id="@+id/sp"
         />
     <EditText
@@ -158,6 +246,7 @@
         android:layout_toRightOf="@+id/prix"
         android:layout_marginLeft="85dp"
         android:inputType="number"
+        android:textColor="#BA000000"
         android:singleLine="true"
         android:textSize="17sp"
         android:layout_marginTop="24dp"/>
@@ -168,9 +257,9 @@
         android:layout_marginTop="27dp"
         android:layout_toRightOf="@+id/image"
         android:layout_marginLeft="88dp"
+        android:textColor="#BA000000"
+        android:background="@drawable/button"
         android:text="Upload"
-
-        android:textColor="#FFF"
         android:id="@+id/upload" />
 
     <Button
@@ -180,6 +269,7 @@
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
         android:text="Publier"
+        android:background="@drawable/button"
         android:id="@+id/post" />
 
     <ProgressBar
@@ -188,4 +278,5 @@
         android:layout_centerInParent="true"
         android:visibility="invisible"
         android:id="@+id/prog" />
+</RelativeLayout>
 </RelativeLayout>

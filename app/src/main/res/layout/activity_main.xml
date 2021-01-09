@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/k"
+    android:background="@mipmap/jpeg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
@@ -55,8 +55,6 @@
         android:layout_marginTop="30dp"
         android:layout_below="@+id/editText2"
         android:layout_centerHorizontal="true"
-
-
         ></Button>
     <Button
 

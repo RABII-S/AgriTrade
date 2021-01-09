@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity2"
-    android:background="@drawable/k">
+    android:background="@mipmap/moun">
 
     <ImageView
         android:id="@+id/imageView"
@@ -13,11 +13,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/lelogo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,15 +28,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="173dp"
         android:layout_marginLeft="173dp"
-        android:layout_marginTop="67dp"
+        android:layout_marginTop="452dp"
         android:layout_marginEnd="173dp"
         android:layout_marginRight="173dp"
         android:fontFamily="@font/averia_libre_light_italic"
         android:text="WELCOME"
-        android:textColor="#000"
+        android:textColor="#F4C2C2"
         android:textSize="40dp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
