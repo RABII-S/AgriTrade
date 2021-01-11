@@ -7,14 +7,11 @@
     android:background="@mipmap/heaven"
     tools:context=".MainActivity"
     android:orientation="vertical">
-
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FF121419"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
