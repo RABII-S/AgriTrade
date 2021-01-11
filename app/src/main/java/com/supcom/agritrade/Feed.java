@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -92,6 +93,20 @@ public class Feed extends AppCompatActivity {
 
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
+//        BottomNavigationView.OnNavigationItemSelectedListener  {
+//            item ->
+//                when(item.itemId) {
+//            R.id.item1 -> {
+//                // Respond to navigation item 1 click
+//                true
+//            }
+//            R.id.item2 -> {
+//                // Respond to navigation item 2 click
+//                true
+//            }
+//        else -> false
+//        }
+//        }
     }
 
     @Override
