@@ -2,11 +2,14 @@ package com.supcom.agritrade;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +43,8 @@ public class Feed extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.topAppBar);
+        setSupportActionBar(toolbar);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         rv = (RecyclerView) findViewById(R.id.recyclerview);
         final FeedAdapter adapter = new FeedAdapter(contacts, getApplicationContext());
@@ -76,16 +81,9 @@ public class Feed extends AppCompatActivity {
 
 
                                });
-        FloatingActionButton fab1 = findViewById(R.id.logout);
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Feed.this, MainActivity.class);
-                startActivity(intent);
-            }
 
 
-        });
+
 
         /*
         PostData.AddToContactsList(p);
@@ -96,4 +94,23 @@ public class Feed extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.lol:
+                Intent intent = new Intent(Feed.this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.profile:
+                Toast.makeText(getApplicationContext(), "still not created", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

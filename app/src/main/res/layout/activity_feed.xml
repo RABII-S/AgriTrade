@@ -4,48 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/jj"
+    android:background="@mipmap/heaven"
     tools:context=".MainActivity"
     android:orientation="vertical">
 
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF121419"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Agritrade"
+            app:menu="@menu/menu"
+            app:navigationIcon="@drawable/ic_menu"
+            app:titleTextColor="#709DA8"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+<!--</androidx.coordinatorlayout.widget.CoordinatorLayout>-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F5FFFFFF"
-        android:padding="20dp">
+        android:background="#F5FFFFFF">
 
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="173dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-
-            android:layout_marginTop="27dp"
-            android:layout_marginEnd="86dp"
-            android:layout_marginRight="86dp"
-            android:fontFamily="sans-serif-black"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/aclonica"
             android:text="Publications"
             android:textColor="#000"
-            android:textSize="20dp"
-            android:textStyle="italic" />
+            android:textSize="30dp" />
 
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:menu="@menu/menu2"
+                android:contextClickable="true"
+                app:itemTextColor="#FF121419"
+                android:background="#E6709DA8"
+                android:layout_below="@id/textView"
+                />
 
+<!--            <TextView-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Legume" />-->
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/logout"
-            android:layout_width="82dp"
-            android:layout_height="87dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="39dp"
-            android:layout_marginRight="39dp"
-            android:layout_marginTop="18dp"
-            android:clickable="true"
-            android:src="@drawable/b" />
-
+<!--            <TextView-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Fruit" />-->
 
     </RelativeLayout>
 
