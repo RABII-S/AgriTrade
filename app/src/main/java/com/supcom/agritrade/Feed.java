@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,7 +36,8 @@ public class Feed extends AppCompatActivity {
     private FeedAdapter adapter;
     private List<PostData> dataList;
     private PostData dope;
-
+    private NavigationView nav;
+    private RelativeLayout rl;
 
     ArrayList<PostData> contactsm = new ArrayList<PostData>();
     ArrayList<PostData> contacts = new ArrayList<PostData>();
@@ -107,6 +111,9 @@ public class Feed extends AppCompatActivity {
 //        else -> false
 //        }
 //        }
+        rl=(RelativeLayout)findViewById(R.id.rola);
+        //nav=new ActionBarDrawerToggle(this,rl,"open","close");
+
     }
 
     @Override
