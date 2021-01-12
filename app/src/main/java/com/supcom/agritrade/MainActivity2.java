@@ -18,8 +18,8 @@ public class MainActivity2 extends AppCompatActivity {
     private static int SPLASH_SCREEN=5000;
 
     Animation topAnim, bottomAnim;
-    ImageView image;
-    TextView logo;
+//    ImageView image;
+//    TextView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +32,10 @@ public class MainActivity2 extends AppCompatActivity {
         bottomAnim= AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
 */
         //Hooks
-        image=findViewById(R.id.imageView);
-        logo=findViewById(R.id.textView);
-
-        image.setAnimation(topAnim);
-        logo.setAnimation(bottomAnim);
+//        logo=findViewById(R.id.imageView);
+//        image=findViewById(R.id.aa);
+//        image.setAnimation(topAnim);
+//        logo.setAnimation(bottomAnim);
 
         new Handler().postDelayed(new Runnable() {
             @Override

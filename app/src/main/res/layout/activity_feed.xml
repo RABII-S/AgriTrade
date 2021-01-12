@@ -32,6 +32,7 @@
         android:layout_height="200dp"
         android:layout_marginTop="50dp"
         android:background="#FFFFFF"
+        android:visibility="invisible"
         android:layout_gravity="start"
         app:menu="@menu/nav"></com.google.android.material.navigation.NavigationView>
 <!--</androidx.coordinatorlayout.widget.CoordinatorLayout>-->

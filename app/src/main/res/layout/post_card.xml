@@ -18,6 +18,7 @@ l
 
             <ImageView
                 android:id="@+id/taswira"
+                android:scaleType="centerCrop"
                 android:layout_width="180dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_launcher_background" />

@@ -2,6 +2,9 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/aclonica</item>
+        <item>@font/aguafina_script</item>
+        <item>@font/alex_brush</item>
+        <item>@font/allura</item>
         <item>@font/amita</item>
         <item>@font/averia_libre</item>
         <item>@font/averia_libre_bold</item>
