@@ -93,6 +93,7 @@ public class commande extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 Glide.with(commande.this)
                         .load(uri)
+                        .centerCrop()
                         .into(img);
 
             }
