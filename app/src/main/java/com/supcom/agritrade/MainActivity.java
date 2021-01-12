@@ -55,29 +55,6 @@ public class MainActivity extends Activity  {
 
         auth = FirebaseAuth.getInstance();
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        // Create a new user with a first and last name
-        Map<String, Object> user = new HashMap<>();
-        user.put("name", 12);
-        user.put("imageResourceId", 125);
-
-
-// Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
 
 
         b1.setOnClickListener(new View.OnClickListener() {
@@ -106,9 +83,6 @@ public class MainActivity extends Activity  {
 
             }
         });
-
-
-
 
         b2.setOnClickListener(new View.OnClickListener(){
 
