@@ -68,6 +68,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                 contacts.clear();
                 CollectionReference query=db.collection("Posts");
                 String[] S=getResources().getStringArray(R.array.ghala);
+
                 if(i==1){
                     }
                 else if(i==2){
@@ -76,7 +77,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                 if(x==1) {
                     txt.setText("MY COMMANDS");
                     query.whereEqualTo("UserID",currentUser.getUid());
-                    query.whereIn("Type", Arrays.asList(S))
+                    query.whereIn("Type", )
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
