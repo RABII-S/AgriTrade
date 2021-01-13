@@ -64,21 +64,42 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                 x++;
             case R.id.flesh1:
                 x++;
-                x%=3;
+                x %= 3;
                 contacts.clear();
-                CollectionReference query=db.collection("Posts");
-                String[] S=getResources().getStringArray(R.array.ghala);
-                if(i==1){
-                    S=getResources().getStringArray(R.array.batata);
-                    }
-                else if(i==2){
-                    S=getResources().getStringArray(R.array.autre);
-                   }
+                CollectionReference query = db.collection("Posts");
+                CollectionReference query2 = db.collection("commandes");
 
-                if(x==1) {
-                    txt.setText("MY COMMANDS");
-                    contacts.clear();
-                    adapter.notifyDataSetChanged();
+                String[] S = getResources().getStringArray(R.array.ghala);
+                if (i == 1) {
+                    S = getResources().getStringArray(R.array.batata);
+                } else if (i == 2) {
+                    S = getResources().getStringArray(R.array.autre);
+                }
+
+                if (x == 1) {
+                    txt.setText("MY ORDERS");
+                    query2.whereEqualTo("UserID", currentUser.getUid())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("TotalPrice").toString(),
+                                                    document.getData().get("quantite").toString(), document.getData().get("image").toString(),
+                                                    document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                            p.setId(document.getId());
+                                            contacts.add(p);
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+
+
+                                    }
+
+                                }
+                            });
+
 
                 }
                 else if(x==2) {

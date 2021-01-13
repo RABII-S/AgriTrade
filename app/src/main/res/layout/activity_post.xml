@@ -33,7 +33,7 @@
                 android:layout_below="@+id/p"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/averia_libre_bold"
-                android:text="1000 Kg"
+                android:text=""
                 android:textSize="15sp"
                 />
             <TextView
@@ -45,7 +45,7 @@
                 android:layout_below="@+id/t"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/averia_libre_bold"
-                android:text="5 DT/Kg"
+                android:text=""
                 android:textSize="15sp" />
             <TextView
                 android:id="@+id/tx"
@@ -56,12 +56,12 @@
                 android:layout_above="@+id/p"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/averia_libre_bold"
-                android:text="batata"
+                android:text=""
                 android:textSize="15sp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1 jan 2020"
+                android:text=""
                 android:fontFamily="@font/averia_libre_bold"
                 android:layout_below="@+id/q"
                 android:layout_alignParentRight="true"

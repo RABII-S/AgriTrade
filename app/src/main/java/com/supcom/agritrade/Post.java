@@ -7,6 +7,8 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.ProgressDialog;
 
@@ -71,7 +74,10 @@ public class Post extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
         Post = (Button) findViewById(R.id.post);
+        final TextView ty = (TextView) findViewById(R.id.tx);
 
+        final TextView pr = (TextView) findViewById(R.id.px);
+        final TextView qan = (TextView) findViewById(R.id.qx);
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +86,7 @@ public class Post extends AppCompatActivity {
         });
         radio = (RadioGroup) findViewById(R.id.radiox);
         sp = (Spinner) findViewById(R.id.sp);
-        spkg=(Spinner)findViewById(R.id.spkg);
+        spkg = (Spinner) findViewById(R.id.spkg);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.batata, android.R.layout.simple_spinner_item);
@@ -91,6 +97,33 @@ public class Post extends AppCompatActivity {
         sp.setAdapter(adapter);
 
         //  sp.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+
+        Price.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+
+                pr.setText(s.toString() + " DT/" + unite);
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+        Description.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+
+                qan.setText(s.toString() + " " + unite);
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
 
         radio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -135,6 +168,7 @@ public class Post extends AppCompatActivity {
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Type = parent.getItemAtPosition(position).toString();
+                ty.setText(Type);
 
             } // to close the onItemSelected
 
@@ -145,11 +179,12 @@ public class Post extends AppCompatActivity {
         spkg.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 unite = parent.getItemAtPosition(position).toString();
+                pr.setText("    DT/" + unite);
+                qan.setText("    " + unite);
             } // to close the onItemSelected
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
         Post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
