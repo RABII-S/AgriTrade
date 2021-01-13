@@ -202,20 +202,21 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                     case R.id.fruitemenu:
                         i=0;
                         SS=getResources().getStringArray(R.array.ghala);
+                        break;
                     case R.id.legumemenu:
                         i=1;
                         SS=getResources().getStringArray(R.array.batata);
+                        break;
                     case R.id.autremenu:
                         i=2;
                         SS=getResources().getStringArray(R.array.autre);
+                        break;
                 }
                 if(x==1) {
-                    txt.setText("MY COMMANDS");
                     adapter.notifyDataSetChanged();
 
                 }
                 else if(x==2) {
-                    txt.setText("MY POSTS");
                     query.whereEqualTo("UserID",currentUser.getUid());
                     query.whereIn("Type", Arrays.asList(SS))
                             .get()
@@ -240,7 +241,6 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                             });
                 }
                 else {
-                    txt.setText("PUBLICATIONS");
                     query.whereIn("Type", Arrays.asList(SS))
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
