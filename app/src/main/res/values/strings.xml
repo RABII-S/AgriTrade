@@ -42,5 +42,6 @@
         <item>Litre</item>
         <item>Kl</item>
     </string-array>
+    <string name="title_activity_main3">MainActivity</string>
 
 </resources>

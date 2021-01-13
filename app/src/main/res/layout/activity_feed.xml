@@ -42,7 +42,23 @@
         android:layout_marginTop="50dp"
         android:id="@+id/mar7be"
         android:background="#F5FFFFFF">
-
+        <ImageView
+            android:layout_width="57dp"
+            android:id="@+id/flesh1"
+            android:layout_height="29dp"
+            android:src="@drawable/aaa"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="3dp"
+            android:scaleType="centerCrop"/>
+        <ImageView
+            android:id="@+id/flesh2"
+            android:layout_width="57dp"
+            android:layout_height="29dp"
+            android:src="@drawable/aa"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/textView"
@@ -65,7 +81,7 @@
                 android:layout_below="@id/textView"
                 />
 
-<!--            <TextView-->
+        <!--            <TextView-->
 <!--                android:layout_width="100dp"-->
 <!--                android:layout_height="wrap_content"-->
 <!--                android:text="Legume" />-->
@@ -110,6 +126,8 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_add1"
         android:clickable="true"
-        android:backgroundTint="#CCB75457"/>
+        app:borderWidth="10dp"
+        android:backgroundTint="#129E8F"/>
+
 </RelativeLayout>
 </RelativeLayout>

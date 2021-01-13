@@ -1,11 +1,14 @@
 package com.supcom.agritrade;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import com.google.android.material.navigation.NavigationView;
 
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,47 +39,121 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
-public class Feed extends AppCompatActivity {
+public class Feed extends AppCompatActivity implements View.OnClickListener{
     private RecyclerView rv;
-    private FeedAdapter adapter;
-    private List<PostData> dataList;
-    private PostData dope;
-    private NavigationView nav;
-    private RelativeLayout rl;
-    ArrayList<PostData> contacts = new ArrayList<PostData>();
+    private ImageView f1,f2;
+    ArrayList<PostData> contacts = new ArrayList<>();
+    final FeedAdapter adapter = new FeedAdapter( this);
+    private TextView txt;
+    public int x=0,i=0;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    final FirebaseUser currentUser = mAuth.getCurrentUser();
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    @SuppressLint("ResourceType")
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.gotopost:
+                Intent intent = new Intent(Feed.this, Post.class);
+                startActivity(intent);
+                break;
+            case R.id.flesh2:
+                x++;
+            case R.id.flesh1:
+                x++;
+                x%=3;
+                contacts.clear();
+                CollectionReference query=db.collection("Posts");
+                String[] S=getResources().getStringArray(R.array.ghala);
+                if(i==1){
+                    }
+                else if(i==2){
+                   }
 
+                if(x==1) {
+                    txt.setText("MY COMMANDS");
+                    query.whereEqualTo("UserID",currentUser.getUid());
+                    query.whereIn("Type", Arrays.asList(S))
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
+                                                    document.getData().get("Description").toString(), document.getData().get("image").toString(),
+                                                    document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                            p.setId(document.getId());
+                                            contacts.add(p);
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+
+
+                                    }
+
+                                }
+                            });
+                }
+                else if(x==2) {
+                    txt.setText("MY POSTS");
+                    Toast.makeText(this, "yes", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    txt.setText("PUBLICATIONS");
+                    query.whereIn("Type", Arrays.asList(S))
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
+                                                    document.getData().get("Description").toString(), document.getData().get("image").toString(),
+                                                    document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                            p.setId(document.getId());
+                                            contacts.add(p);
+                                            Toast.makeText(Feed.this, "4", Toast.LENGTH_SHORT).show();
+
+
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+
+
+                                    }
+                                }
+                            });
+
+                }
+                break;
+            default:
+                break;
+
+        }
+
+        }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.topAppBar);
+        Toolbar toolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        rv = (RecyclerView) findViewById(R.id.recyclerview);
-        final FeedAdapter adapter = new FeedAdapter(contacts, getApplicationContext());
+        rv = findViewById(R.id.recyclerview);
+        adapter.setCaptions(contacts);
         rv.setAdapter(adapter);
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser currentUser = mAuth.getCurrentUser();
-
-
         FloatingActionButton fab = findViewById(R.id.gotopost);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Feed.this, Post.class);
-                startActivity(intent);
-            }
-
-
-        });
-
-        db.collection("Posts")
-                .whereIn("Type", Arrays.asList(getResources().getStringArray(R.array.ghala)))
+        fab.setOnClickListener(this);
+        ArrayList<String> L=new ArrayList<>();L.add("tofeh");
+        CollectionReference query=db.collection("Posts");
+        query.whereIn("Type", Arrays.asList(getResources().getStringArray(R.array.ghala)))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -106,91 +184,32 @@ public class Feed extends AppCompatActivity {
 
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
-
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        txt=findViewById(R.id.textView);
+        f1=findViewById(R.id.flesh1);
+        f1.setOnClickListener(Feed.this);
+        f2=findViewById(R.id.flesh2);
+        f2.setOnClickListener(Feed.this);
+        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                contacts.clear();
                 switch (item.getItemId()) {
                     case R.id.fruitemenu:
+                        i=0;
 
-                        db.collection("Posts")
-                                .whereIn("Type", Arrays.asList(getResources().getStringArray(R.array.ghala)))
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                                PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
-                                                        document.getData().get("Description").toString(), document.getData().get("image").toString(),
-                                                        document.getData().get("unite").toString(), document.getData().get("Date").toString());
-                                                p.setId(document.getId());
-                                                contacts.add(p);
-                                                adapter.notifyDataSetChanged();
-
-                                            }
-                                        } else {
-
-
-                                        }
-                                    }
-                                });
+//                        adapter.notifyDataSetChanged();
                         return true;
                     case R.id.legumemenu:
-                        db.collection("Posts")
-                                .whereIn("Type", Arrays.asList(getResources().getStringArray(R.array.batata)))
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        i=1;
 
-                                                PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
-                                                        document.getData().get("Description").toString(), document.getData().get("image").toString(),
-                                                        document.getData().get("unite").toString(), document.getData().get("Date").toString());
-                                                p.setId(document.getId());
-                                                contacts.add(p);
-                                                adapter.notifyDataSetChanged();
-
-                                            }
-                                        } else {
-
-
-                                        }
-                                    }
-                                });
+//                        adapter.notifyDataSetChanged();
                         return true;
                     case R.id.autremenu:
-                        db.collection("Posts")
-                                .whereIn("Type", Arrays.asList(getResources().getStringArray(R.array.autre)))
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                        i=2;
 
-                                                PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
-                                                        document.getData().get("Description").toString(), document.getData().get("image").toString(),
-                                                        document.getData().get("unite").toString(), document.getData().get("Date").toString());
-                                                p.setId(document.getId());
-                                                contacts.add(p);
-                                                adapter.notifyDataSetChanged();
-
-                                            }
-                                        } else {
-
-
-                                        }
-                                    }
-                                });
+//                        adapter.notifyDataSetChanged();
                         return true;
                 }
                 return false;

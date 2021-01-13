@@ -33,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -64,8 +65,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         }
     }
 
-    public FeedAdapter(List<PostData> captions, Context ct) {
-        this.captions = captions;
+    public void setCaptions(ArrayList<PostData> L){
+        captions=L;
+        notifyDataSetChanged();
+    }
+    public FeedAdapter( Context ct) {
         this.ct = ct;
     }
 
