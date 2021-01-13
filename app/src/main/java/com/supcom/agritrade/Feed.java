@@ -77,6 +77,12 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
 
                 if(x==1) {
                     txt.setText("MY COMMANDS");
+                    contacts.clear();
+                    adapter.notifyDataSetChanged();
+
+                }
+                else if(x==2) {
+                    txt.setText("MY POSTS");
                     query.whereEqualTo("UserID",currentUser.getUid());
                     query.whereIn("Type", Arrays.asList(S))
                             .get()
@@ -100,11 +106,6 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 }
                             });
                 }
-                else if(x==2) {
-                    txt.setText("MY POSTS");
-                    Toast.makeText(this, "yes", Toast.LENGTH_SHORT).show();
-
-                }
                 else {
                     txt.setText("PUBLICATIONS");
                     query.whereIn("Type", Arrays.asList(S))
@@ -120,9 +121,6 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
-                                            Toast.makeText(Feed.this, "4", Toast.LENGTH_SHORT).show();
-
-
                                         }
                                         adapter.notifyDataSetChanged();
                                     } else {
@@ -197,24 +195,76 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                CollectionReference query=db.collection("Posts");
+                String[] SS=new String[18];
+                contacts.clear();
                 switch (item.getItemId()) {
                     case R.id.fruitemenu:
                         i=0;
-
-//                        adapter.notifyDataSetChanged();
-                        return true;
+                        SS=getResources().getStringArray(R.array.ghala);
                     case R.id.legumemenu:
                         i=1;
-
-//                        adapter.notifyDataSetChanged();
-                        return true;
+                        SS=getResources().getStringArray(R.array.batata);
                     case R.id.autremenu:
                         i=2;
-
-//                        adapter.notifyDataSetChanged();
-                        return true;
+                        SS=getResources().getStringArray(R.array.autre);
                 }
-                return false;
+                if(x==1) {
+                    txt.setText("MY COMMANDS");
+                    adapter.notifyDataSetChanged();
+
+                }
+                else if(x==2) {
+                    txt.setText("MY POSTS");
+                    query.whereEqualTo("UserID",currentUser.getUid());
+                    query.whereIn("Type", Arrays.asList(SS))
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
+                                                    document.getData().get("Description").toString(), document.getData().get("image").toString(),
+                                                    document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                            p.setId(document.getId());
+                                            contacts.add(p);
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+
+
+                                    }
+
+                                }
+                            });
+                }
+                else {
+                    txt.setText("PUBLICATIONS");
+                    query.whereIn("Type", Arrays.asList(SS))
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
+                                                    document.getData().get("Description").toString(), document.getData().get("image").toString(),
+                                                    document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                            p.setId(document.getId());
+                                            contacts.add(p);
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+
+
+                                    }
+                                }
+                            });
+
+                }
+                return true;
             }
         });
 

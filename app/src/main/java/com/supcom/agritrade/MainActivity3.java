@@ -53,7 +53,6 @@ public class MainActivity3 extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-
                                 PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
                                         document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                         document.getData().get("unite").toString(), document.getData().get("Date").toString());
