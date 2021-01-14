@@ -1,5 +1,4 @@
 package com.supcom.agritrade;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,8 +40,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-
 public class Feed extends AppCompatActivity implements View.OnClickListener{
     private RecyclerView rv;
     private ImageView f1,f2;
@@ -68,17 +65,15 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                 contacts.clear();
                 CollectionReference query = db.collection("Posts");
                 CollectionReference query2 = db.collection("commandes");
-
                 String[] S = getResources().getStringArray(R.array.ghala);
-                if (i == 1) {
+                if (i == 1)
                     S = getResources().getStringArray(R.array.batata);
-                } else if (i == 2) {
+                else if (i == 2)
                     S = getResources().getStringArray(R.array.autre);
-                }
-
                 if (x == 1) {
                     txt.setText("MY ORDERS");
-                    query2.whereEqualTo("UserID", currentUser.getUid())
+                    query2.whereEqualTo("UserID", currentUser.getUid());
+                    query2.whereIn("Type", Arrays.asList(S))
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -92,15 +87,9 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             contacts.add(p);
                                         }
                                         adapter.notifyDataSetChanged();
-                                    } else {
-
-
                                     }
-
                                 }
                             });
-
-
                 }
                 else if(x==2) {
                     txt.setText("MY POSTS");
@@ -119,11 +108,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             contacts.add(p);
                                         }
                                         adapter.notifyDataSetChanged();
-                                    } else {
-
-
                                     }
-
                                 }
                             });
                 }
@@ -144,25 +129,18 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             contacts.add(p);
                                         }
                                         adapter.notifyDataSetChanged();
-                                    } else {
-
-
                                     }
                                 }
                             });
-
                 }
                 break;
             default:
                 break;
 
         }
-
-        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         Toolbar toolbar = findViewById(R.id.topAppBar);
@@ -190,19 +168,13 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 adapter.notifyDataSetChanged();
 
                             }
-                        } else {
-
-
                         }
                     }
                 });
-
-
         /*
         PostData.AddToContactsList(p);
         contacts = PostData.getContactsList();
         */
-
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         txt=findViewById(R.id.textView);
@@ -213,10 +185,11 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.bringToFront();
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 CollectionReference query=db.collection("Posts");
+                CollectionReference query2 = db.collection("commandes");
+
                 String[] SS=new String[18];
                 contacts.clear();
                 switch (item.getItemId()) {
@@ -234,8 +207,24 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                         break;
                 }
                 if(x==1) {
-                    adapter.notifyDataSetChanged();
-
+                    query2.whereEqualTo("UserID", currentUser.getUid());
+                    query2.whereIn("Type", Arrays.asList(SS))
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("TotalPrice").toString(),
+                                                document.getData().get("quantite").toString(), document.getData().get("image").toString(),
+                                                document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                        p.setId(document.getId());
+                                        contacts.add(p);
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        });
                 }
                 else if(x==2) {
                     query.whereEqualTo("UserID",currentUser.getUid());
@@ -253,11 +242,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             contacts.add(p);
                                         }
                                         adapter.notifyDataSetChanged();
-                                    } else {
-
-
                                     }
-
                                 }
                             });
                 }
@@ -277,27 +262,19 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             contacts.add(p);
                                         }
                                         adapter.notifyDataSetChanged();
-                                    } else {
-
-
                                     }
                                 }
                             });
-
                 }
                 return true;
             }
         });
-
-
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
