@@ -77,8 +77,8 @@
                 app:menu="@menu/menu2"
                 android:contextClickable="true"
                 android:background="#709DA8"
-                app:itemTextColor="#050505"
-                app:itemIconTint="#F1F2EB"
+                app:itemTextColor="@color/bottom_nav_color"
+                app:itemIconTint="@color/bottom_nav_color"
                 android:layout_below="@id/textView"
                 />
 
