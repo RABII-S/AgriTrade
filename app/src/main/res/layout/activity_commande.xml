@@ -12,8 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:text="commande"
+        android:layout_marginBottom="40dp"
         android:fontFamily="@font/aclonica"
         android:textSize="39sp"
         android:textColor="#FAF6F6"
@@ -139,15 +140,28 @@
 
     <Button
         android:id="@+id/envoyer22"
-        android:layout_width="135dp"
-        android:layout_height="52dp"
+        android:layout_width="120dp"
+        android:layout_height="44dp"
         android:layout_below="@id/addressx"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
-        android:layout_toRightOf="@+id/addressx"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
         android:background="@drawable/button"
         android:text="Commander"
         android:layout_marginBottom="20dp"
+        android:textColor="#F1E6E6"
+        />
+        <Button
+        android:id="@+id/back"
+        android:layout_width="120dp"
+        android:layout_height="44dp"
+        android:layout_below="@id/addressx"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/button"
+        android:text="Back"
+        android:layout_marginLeft="45dp"
+        android:layout_marginBottom="20dp"
         android:textColor="#F1E6E6" />
+
     </RelativeLayout>
 </RelativeLayout>

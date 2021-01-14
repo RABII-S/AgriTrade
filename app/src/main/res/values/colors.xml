@@ -6,4 +6,9 @@
     <color name="elasl">#FF40314A</color>
     <color name="page2">#FF131D27</color>
     <color name="feed">#FF121419</color>
+    <color name="command">#D4726D</color>
+    <color name="post">#232323</color>
+    <color name="profile">#FFFFFF</color>
+
+
 </resources>

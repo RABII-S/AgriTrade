@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     android:background="@mipmap/whe"
     android:padding="15dp">
+
+    <TextView
+        android:id="@+id/publication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Publication"
+        android:fontFamily="@font/aclonica"
+        android:textSize="40sp"
+        android:textColor="#FFFFFF"
+        />
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="130dp"
@@ -15,7 +27,8 @@
         android:id="@+id/card"
         android:backgroundTint="#DCF4F4F4"
         >
-        <RelativeLayout
+
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageView
@@ -251,8 +264,8 @@
         android:textSize="17sp"
         android:layout_marginTop="24dp"/>
     <Button
-        android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_width="120dp"
+        android:layout_height="44dp"
         android:layout_below="@+id/Description"
         android:layout_marginTop="27dp"
         android:layout_toRightOf="@+id/image"
@@ -263,15 +276,26 @@
         android:id="@+id/upload" />
 
     <Button
-        android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_width="120dp"
+        android:layout_height="44dp"
         android:layout_below="@+id/image"
         android:layout_marginTop="60dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:text="Publier"
+        android:layout_marginRight="50dp"
         android:textColor="#F1E6E6"
         android:background="@drawable/button"
         android:id="@+id/post" />
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="44dp"
+        android:layout_below="@+id/image"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="50dp"
+        android:text="Back"
+        android:textColor="#F1E6E6"
+        android:background="@drawable/button"
+        android:id="@+id/back" />
 
     <ProgressBar
         android:layout_width="50dp"

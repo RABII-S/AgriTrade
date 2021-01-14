@@ -1,8 +1,10 @@
 package com.supcom.agritrade;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
@@ -12,10 +14,13 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -57,7 +62,7 @@ import java.util.Map;
 public class commande extends AppCompatActivity {
 
     private static final String TAG = "ExamplesActivity";
-    Button envoyer;
+    Button envoyer,back;
     FloatingActionButton adr;
     EditText editName, Mobile, quantite;
     EditText adresse;
@@ -77,10 +82,21 @@ public class commande extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commande);
+        Window window = this.getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.command));
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final ImageView img = (ImageView) findViewById(R.id.imagecom);
 
@@ -104,6 +120,14 @@ public class commande extends AppCompatActivity {
             }
         });
         envoyer = (Button) findViewById(R.id.envoyer22);
+        back=findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(commande.this, Feed.class);
+                startActivity(intent);
+            }
+        });
         adr = (FloatingActionButton) findViewById(R.id.map);
         adresse = (EditText) findViewById(R.id.adressey);
 

@@ -299,7 +299,8 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                 startActivity(intent);
                 return true;
             case R.id.profile:
-                Toast.makeText(getApplicationContext(), "still not created", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(Feed.this, profile.class);
+                startActivity(intent2);
                 return true;
         }
         return super.onOptionsItemSelected(item);
