@@ -42,34 +42,47 @@ import static androidx.core.content.ContextCompat.startActivity;
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     Context ct;
     private List<PostData> captions;
+    int cType;
 
     private int[] imageIds;
     Dialog dialog;
     private LinearLayout post;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder  {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cardView;
         private TextView type;
         private TextView prix;
         private TextView quantite;
         private ImageView image;
         private TextView date;
+        private TextView quantiteCP;
+        private TextView prixCP;
+
         public ViewHolder(View v) {
             super(v);
-            cardView=v.findViewById(R.id.cardView);
-            image=v.findViewById(R.id.taswira);
-            type=v.findViewById(R.id.typeex);
-            prix=v.findViewById(R.id.prixdelunitex);
-            date=v.findViewById(R.id.datex);
-            quantite=v.findViewById(R.id.quantitedisponiblex);
+            cardView = v.findViewById(R.id.cardView);
+            image = v.findViewById(R.id.taswira);
+            type = v.findViewById(R.id.typeex);
+            prix = v.findViewById(R.id.prixdelunitex);
+            date = v.findViewById(R.id.datex);
+            quantiteCP = v.findViewById(R.id.quantitedisponible);
+            prixCP = v.findViewById(R.id.prixdelunite);
+            quantite = v.findViewById(R.id.quantitedisponiblex);
         }
     }
 
-    public void setCaptions(ArrayList<PostData> L){
-        captions=L;
+    public void setCaptions(ArrayList<PostData> L, int cType) {
+        captions = L;
+        this.cType = cType;
         notifyDataSetChanged();
     }
-    public FeedAdapter( Context ct) {
+
+    public void setcType(int cType) {
+        this.cType = cType;
+        notifyDataSetChanged();
+    }
+
+    public FeedAdapter(Context ct) {
         this.ct = ct;
     }
 
@@ -94,43 +107,73 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final FeedAdapter.ViewHolder holder, final int position) {
-
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(ct ,commande.class);
-
-                PostData postData=captions.get(position);
-
-                intent.putExtra("postD",postData);
-                intent.putExtra("image",captions.get(position).getImage());
-                v.getContext().startActivity(intent);
+        if (cType == 1) {
+            final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+            storageReference.child(captions.get(position).getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(ct)
+                            .load(uri)
+                            .centerCrop()
+                            .into(holder.image);
 
 
-            }
-        });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+            holder.quantiteCP.setText("Order Quantity:");
+            holder.prixCP.setText("Total Price:");
+            holder.type.setText(captions.get(position).getType());
+            holder.prix.setText(captions.get(position).getPrice() + " DT");
+            holder.quantite.setText(captions.get(position).getDescription() + " " + captions.get(position).getUnite());
+            holder.date.setText(captions.get(position).getDate());
 
-        final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        storageReference.child(captions.get(position).getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(ct)
-                        .load(uri)
-                        .centerCrop()
-                        .into(holder.image);
+
+        } else {
+
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ct, commande.class);
+
+                    PostData postData = captions.get(position);
+
+                    intent.putExtra("postD", postData);
+                    intent.putExtra("image", captions.get(position).getImage());
+                    v.getContext().startActivity(intent);
 
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
-        holder.type.setText(captions.get(position).getType());
-        holder.prix.setText(captions.get(position).getPrice()+" DT/"+captions.get(position).getUnite());
-        holder.quantite.setText(captions.get(position).getDescription()+" "+captions.get(position).getUnite());
-        holder.date.setText(captions.get(position).getDate());
+                }
+            });
+
+            final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+            storageReference.child(captions.get(position).getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(ct)
+                            .load(uri)
+                            .centerCrop()
+                            .into(holder.image);
+
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+            holder.quantiteCP.setText("Quantity:");
+            holder.prixCP.setText("Unit Price:");
+            holder.type.setText(captions.get(position).getType());
+            holder.prix.setText(captions.get(position).getPrice() + " DT/" + captions.get(position).getUnite());
+            holder.quantite.setText(captions.get(position).getDescription() + " " + captions.get(position).getUnite());
+            holder.date.setText(captions.get(position).getDate());
+        }
     }
 
     @Override

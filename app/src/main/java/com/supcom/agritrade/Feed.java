@@ -49,7 +49,9 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
     private RecyclerView rv;
     private ImageView f1,f2;
     ArrayList<PostData> contacts = new ArrayList<>();
-    final FeedAdapter adapter = new FeedAdapter( this);
+    int cType;
+    final FeedAdapter adapter = new FeedAdapter(this);
+
     private TextView txt;
     public int x=0,i=0;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -77,8 +79,10 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                     S = getResources().getStringArray(R.array.autre);
                 if (x == 1) {
                     txt.setText("MY ORDERS");
-                    query2.whereEqualTo("UserID", currentUser.getUid());
+                    cType = 1;
+                    adapter.setcType(cType);
                     query2.whereIn("Type", Arrays.asList(S))
+                            .whereEqualTo("UserID", currentUser.getUid())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -97,9 +101,12 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                             });
                 }
                 else if(x==2) {
+                    cType = 2;
+                    adapter.setcType(cType);
                     txt.setText("MY POSTS");
-                    query.whereEqualTo("UserID",currentUser.getUid());
+                    adapter.setcType(cType);
                     query.whereIn("Type", Arrays.asList(S))
+                            .whereEqualTo("UserID", currentUser.getUid())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -113,11 +120,14 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             contacts.add(p);
                                         }
                                         adapter.notifyDataSetChanged();
+
                                     }
                                 }
                             });
                 }
                 else {
+                    cType = 0;
+                    adapter.setcType(cType);
                     txt.setText("PUBLICATIONS");
                     query.whereIn("Type", Arrays.asList(S))
                             .get()
@@ -133,7 +143,9 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }
+
                                         adapter.notifyDataSetChanged();
+
                                     }
                                 }
                             });
@@ -150,7 +162,8 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         Window window = this.getWindow();
-
+        rv = findViewById(R.id.recyclerview);
+        adapter.setCaptions(contacts, cType);
 // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
@@ -158,11 +171,10 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
 // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(this,R.color.feed));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.feed));
         Toolbar toolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
-        rv = findViewById(R.id.recyclerview);
-        adapter.setCaptions(contacts);
+
         rv.setAdapter(adapter);
         FloatingActionButton fab = findViewById(R.id.gotopost);
         fab.setOnClickListener(this);
@@ -223,16 +235,18 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                         break;
                 }
                 if(x==1) {
-                    query2.whereEqualTo("UserID", currentUser.getUid());
+                    cType = 1;
+                    adapter.setcType(cType);
                     query2.whereIn("Type", Arrays.asList(SS))
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("TotalPrice").toString(),
-                                                document.getData().get("quantite").toString(), document.getData().get("image").toString(),
+                            .whereEqualTo("UserID", currentUser.getUid())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("TotalPrice").toString(),
+                                                    document.getData().get("quantite").toString(), document.getData().get("image").toString(),
                                                 document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                         p.setId(document.getId());
                                         contacts.add(p);
@@ -243,8 +257,10 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                         });
                 }
                 else if(x==2) {
-                    query.whereEqualTo("UserID",currentUser.getUid());
+                    cType = 2;
+                    adapter.setcType(cType);
                     query.whereIn("Type", Arrays.asList(SS))
+                            .whereEqualTo("UserID", currentUser.getUid())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -263,6 +279,8 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                             });
                 }
                 else {
+                    cType = 0;
+                    adapter.setcType(cType);
                     query.whereIn("Type", Arrays.asList(SS))
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
