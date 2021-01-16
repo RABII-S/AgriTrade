@@ -89,7 +89,6 @@ public class MainActivity extends Activity  {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(), "WrongCredentials",Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "Redirecting", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(MainActivity.this, Feed.class);
                                     startActivity(intent);
                                 }
@@ -103,9 +102,6 @@ public class MainActivity extends Activity  {
 
                                   @Override
                                   public void onClick(View v) {
-                                      Toast.makeText(getApplicationContext(),
-                                              "Redirecting...",Toast.LENGTH_SHORT).show();
-
                                       Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                                       startActivity(intent);
                                   }

@@ -16,6 +16,17 @@ l
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <RatingBar
+                android:id="@+id/stars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.4"
+                android:scaleY="0.5"
+                android:stepSize="0.5"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="110dp"
+                android:numStars="5"
+                android:layout_below="@id/quantitedisponible"/>
             <ImageView
                 android:id="@+id/taswira"
                 android:scaleType="centerCrop"
@@ -33,8 +44,18 @@ l
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/averia_libre_bold"
                 android:text="1000 Kg"
+                android:textSize="15sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/localisation"
+                android:layout_below="@+id/quantitedisponible"
+                android:text="benarous"
+                android:fontFamily="@font/averia_libre_bold"
                 android:textSize="15sp"
- />
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="7dp"/>
+
             <TextView
                 android:id="@+id/prixdelunitex"
                 android:layout_width="wrap_content"
@@ -64,7 +85,7 @@ l
                 android:fontFamily="@font/averia_libre_bold"
                 android:layout_below="@+id/quantitedisponible"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="42dp"
                 android:layout_marginRight="10dp"
                 android:textSize="12sp"
                 android:id="@+id/datex"
@@ -74,7 +95,7 @@ l
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="22dp"
+                android:layout_marginTop="12dp"
                 android:layout_toRightOf="@+id/taswira"
                 android:fontFamily="@font/averia_libre_light"
                 android:text="Type :"
@@ -102,7 +123,17 @@ l
                 android:text="Quantité  :"
                 android:id="@+id/quantitedisponible"
                 android:textSize="15sp" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/quantitedisponible"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/taswira"
+                android:fontFamily="@font/averia_libre_light"
+                android:text="Localisation:"
+                android:id="@+id/localisation"
+                android:textSize="15sp" />
 
 
         </RelativeLayout>

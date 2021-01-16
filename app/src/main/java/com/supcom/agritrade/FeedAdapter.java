@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +59,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private TextView date;
         private TextView quantiteCP;
         private TextView prixCP;
+        private RatingBar stars;
 
         public ViewHolder(View v) {
             super(v);
@@ -68,6 +71,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             quantiteCP = v.findViewById(R.id.quantitedisponible);
             prixCP = v.findViewById(R.id.prixdelunite);
             quantite = v.findViewById(R.id.quantitedisponiblex);
+            stars=v.findViewById(R.id.stars);
         }
     }
 
@@ -131,22 +135,23 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             holder.prix.setText(captions.get(position).getPrice() + " DT");
             holder.quantite.setText(captions.get(position).getDescription() + " " + captions.get(position).getUnite());
             holder.date.setText(captions.get(position).getDate());
-
-
+            holder.stars.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    String s=String.valueOf(holder.stars.getRating());
+                    return true;
+                }
+            });
         } else {
 
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ct, commande.class);
-
                     PostData postData = captions.get(position);
-
                     intent.putExtra("postD", postData);
                     intent.putExtra("image", captions.get(position).getImage());
                     v.getContext().startActivity(intent);
-
-
                 }
             });
 
@@ -158,8 +163,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                             .load(uri)
                             .centerCrop()
                             .into(holder.image);
-
-
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

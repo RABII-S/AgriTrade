@@ -223,7 +223,6 @@ public class Post extends AppCompatActivity {
                 Post.put("Date",formattedDta);
                 Post.put("unite",unite);
                 Post.put("UserID", currentUser.getUid());
-
                 db.collection("Posts").document()
                         .set(Post)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {

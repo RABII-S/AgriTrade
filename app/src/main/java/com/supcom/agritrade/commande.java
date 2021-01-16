@@ -151,7 +151,7 @@ public class commande extends AppCompatActivity {
         Mobile = (EditText) findViewById(R.id.Mobile);
         quantite = (EditText) findViewById(R.id.quantitey);
         Date currentTime = Calendar.getInstance().getTime();
-        final String formattedDta = DateFormat.getDateInstance(DateFormat.FULL).format(currentTime);
+        final String formattedDta = DateFormat.getDateInstance(DateFormat.MEDIUM).format(currentTime);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
         envoyer.setOnClickListener(new View.OnClickListener() {
