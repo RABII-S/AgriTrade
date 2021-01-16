@@ -93,6 +93,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("quantite").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setId(document.getId());
+                                            p.setPosterID(document.getData().get("posterID").toString());
                                             contacts.add(p);
                                         }
                                         adapter.notifyDataSetChanged();
@@ -117,6 +118,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setId(document.getId());
+                                            p.setPosterID(document.getData().get("UserID").toString());
                                             contacts.add(p);
                                         }
                                         adapter.notifyDataSetChanged();
@@ -140,6 +142,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
                                                     document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                            p.setPosterID(document.getData().get("UserID").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }
@@ -191,6 +194,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
                                         document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                         document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                p.setPosterID(document.getData().get("UserID").toString());
                                 p.setId(document.getId());
                                 contacts.add(p);
                                 adapter.notifyDataSetChanged();
@@ -248,7 +252,8 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("TotalPrice").toString(),
                                                     document.getData().get("quantite").toString(), document.getData().get("image").toString(),
                                                 document.getData().get("unite").toString(), document.getData().get("Date").toString());
-                                        p.setId(document.getId());
+                                            p.setPosterID(document.getData().get("UserID").toString());
+                                            p.setId(document.getId());
                                         contacts.add(p);
                                     }
                                     adapter.notifyDataSetChanged();
@@ -270,6 +275,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
                                                     document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                            p.setPosterID(document.getData().get("UserID").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }
@@ -292,6 +298,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
                                                     document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                            p.setPosterID(document.getData().get("UserID").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }

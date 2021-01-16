@@ -19,22 +19,35 @@ public class PostData implements Serializable {
     private String image;
     private String date;
     private String stars;
+    private String posterID;
     static ArrayList<PostData> contacts = new ArrayList<PostData>();
 
 
-    PostData(String type, String price, String q, String image,String u,String date,String stars) {
+    PostData(String type, String price, String q, String image, String u, String date) {
         this.Type = type;
         this.Price = price;
         this.Description = q;
         this.image = image;
-        unite=u;
-        this.date=date;
-        this.stars=stars;
+        unite = u;
+        this.date = date;
+        this.stars = stars;
     }
 
-    public String getStars() {  return stars; }
+    public String getStars() {
+        return stars;
+    }
 
-    public String getDate() {  return date;  }
+    public String getDate() {
+        return date;
+    }
+
+    public String getPosterID() {
+        return posterID;
+    }
+
+    public void setPosterID(String id) {
+        this.posterID = id;
+    }
 
     public String getId() {
         return id;

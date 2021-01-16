@@ -168,6 +168,7 @@ public class commande extends AppCompatActivity {
                 submit.put("Type", postData.getType());
                 submit.put("Price", postData.getPrice());
                 submit.put("unite", postData.getUnite());
+                submit.put("posterID", postData.getPosterID());
                 Integer fdd = Integer.parseInt(quantite.getText().toString()) * Integer.parseInt(postData.getPrice());
                 submit.put("TotalPrice", fdd.toString());
                 submit.put("UserID", currentUser.getUid());

@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,16 +83,16 @@ public class SignUpActivity extends AppCompatActivity {
                             user.put("email", ed1.getText().toString());
                             user.put("Localisation", local.getText().toString());
                             user.put("UserID", mAuth.getCurrentUser().getUid());
-                            user.put("stars","0");
-                            user.put("ratenumber","0");
+                            user.put("Stars", "0");
+                 
                             Date currentTime = Calendar.getInstance().getTime();
                             user.put("RegistrationDate", DateFormat.getDateInstance(DateFormat.FULL).format(currentTime));
 
-                            db.collection("users")
-                                    .add(user)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            db.collection("users").document(mAuth.getCurrentUser().getUid())
+                                    .set(user)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onSuccess(DocumentReference documentReference) {
+                                        public void onSuccess(Void aVoid) {
 
                                         }
                                     })
