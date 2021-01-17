@@ -101,7 +101,6 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                 }
                 else if(x==2) {
                     txt.setText("MY POSTS");
-                    adapter.setcType(cType);
                     query.whereIn("Type", Arrays.asList(S))
                             .whereEqualTo("UserID", currentUser.getUid())
                             .get()
@@ -117,8 +116,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             p.setPosterID(document.getData().get("UserID").toString());
                                             contacts.add(p);
                                         }
-                                        adapter.setcType(0);
-
+                                        adapter.setcType(2);
                                     }
                                 }
                             });

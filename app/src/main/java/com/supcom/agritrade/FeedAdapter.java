@@ -151,7 +151,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                         a+=0.5;
                     }
                     System.out.println(a);
-                    
                     map.put("stars", s);
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     final DocumentReference docRef = db.collection("users").document(captions.get(position).getPosterID());
