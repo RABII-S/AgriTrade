@@ -12,5 +12,7 @@
         <item>@font/averia_libre_italic</item>
         <item>@font/averia_libre_light</item>
         <item>@font/averia_libre_light_italic</item>
+        <item>@font/creepster</item>
+        <item>@font/slabo_13px</item>
     </array>
 </resources>

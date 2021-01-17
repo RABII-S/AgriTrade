@@ -51,7 +51,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     Context ct;
     private List<PostData> captions;
     int cType;
-
     private int[] imageIds;
     Dialog dialog;
     private LinearLayout post;
