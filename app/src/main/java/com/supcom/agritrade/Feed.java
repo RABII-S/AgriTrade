@@ -79,8 +79,6 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                     S = getResources().getStringArray(R.array.autre);
                 if (x == 1) {
                     txt.setText("MY ORDERS");
-                    cType = 1;
-                    adapter.setcType(cType);
                     query2.whereIn("Type", Arrays.asList(S))
                             .whereEqualTo("UserID", currentUser.getUid())
                             .get()
@@ -96,14 +94,12 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             p.setPosterID(document.getData().get("posterID").toString());
                                             contacts.add(p);
                                         }
-                                        adapter.notifyDataSetChanged();
+                                        adapter.setcType(1);
                                     }
                                 }
                             });
                 }
                 else if(x==2) {
-                    cType = 2;
-                    adapter.setcType(cType);
                     txt.setText("MY POSTS");
                     adapter.setcType(cType);
                     query.whereIn("Type", Arrays.asList(S))
@@ -121,15 +117,13 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             p.setPosterID(document.getData().get("UserID").toString());
                                             contacts.add(p);
                                         }
-                                        adapter.notifyDataSetChanged();
+                                        adapter.setcType(0);
 
                                     }
                                 }
                             });
                 }
                 else {
-                    cType = 0;
-                    adapter.setcType(cType);
                     txt.setText("PUBLICATIONS");
                     query.whereIn("Type", Arrays.asList(S))
                             .get()
@@ -146,9 +140,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }
-
-                                        adapter.notifyDataSetChanged();
-
+                                        adapter.setcType(0);
                                     }
                                 }
                             });

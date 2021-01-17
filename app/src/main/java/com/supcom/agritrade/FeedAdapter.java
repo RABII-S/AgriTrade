@@ -57,7 +57,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     private LinearLayout post;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView cardView;
+        private RelativeLayout rl;
         private TextView type;
         private TextView prix;
         private TextView quantite;
@@ -70,7 +70,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
         public ViewHolder(View v) {
             super(v);
-            cardView = v.findViewById(R.id.cardView);
+            rl = v.findViewById(R.id.layoutofcard);
             image = v.findViewById(R.id.taswira);
             type = v.findViewById(R.id.typeex);
             prix = v.findViewById(R.id.prixdelunitex);
@@ -118,24 +118,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final FeedAdapter.ViewHolder holder, final int position) {
+        final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference.child(captions.get(position).getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(ct)
+                        .load(uri)
+                        .centerCrop()
+                        .into(holder.image);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
         if (cType == 1) {
-            final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-            storageReference.child(captions.get(position).getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Glide.with(ct)
-                            .load(uri)
-                            .centerCrop()
-                            .into(holder.image);
-
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                }
-            });
             holder.quantiteCP.setText("Order Quantity:");
             holder.prixCP.setText("Total Price:");
             holder.type.setText(captions.get(position).getType());
@@ -147,7 +145,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 public boolean onTouch(View v, MotionEvent event) {
                     String s = String.valueOf(holder.stars.getRating());
                     Map<String, Object> map = new HashMap<>();
-                    map.put("Stars", s);
+                    char c=s.charAt(0);
+                    float a=c-48;
+                    if(s.length()>=3){
+                        a+=0.5;
+                    }
+                    System.out.println(a);
+                    
+                    map.put("stars", s);
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     final DocumentReference docRef = db.collection("users").document(captions.get(position).getPosterID());
                     docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -155,20 +160,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                         public void onSuccess(Void aVoid) {
 
                         }
-                    })
-                            .addOnFailureListener(new OnFailureListener() {
+                    }).addOnFailureListener(new OnFailureListener() {
                                 @Override
-                                public void onFailure(@NonNull Exception e) {
-
-                                }
+                                public void onFailure(@NonNull Exception e) {}
                             });
-
                     return true;
                 }
             });
         } else {
 
-            holder.cardView.setOnClickListener(new View.OnClickListener() {
+            holder.rl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(ct, commande.class);
@@ -176,22 +177,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                     intent.putExtra("postD", postData);
                     intent.putExtra("image", captions.get(position).getImage());
                     v.getContext().startActivity(intent);
-                }
-            });
-
-            final StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-            storageReference.child(captions.get(position).getImage()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Glide.with(ct)
-                            .load(uri)
-                            .centerCrop()
-                            .into(holder.image);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
                 }
             });
             holder.quantiteCP.setText("Quantity:");

@@ -3,7 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="160dp">
-l
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,9 +12,12 @@ l
         android:layout_margin="7dp"
         android:id="@+id/cardView">
 
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/layoutofcard">
+
 
             <RatingBar
                 android:id="@+id/stars"
@@ -23,10 +26,11 @@ l
                 android:scaleX="0.4"
                 android:scaleY="0.5"
                 android:stepSize="0.5"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="95dp"
                 android:layout_marginLeft="110dp"
                 android:numStars="5"
-                android:layout_below="@id/quantitedisponible"/>
+                />
+
             <ImageView
                 android:id="@+id/taswira"
                 android:scaleType="centerCrop"
@@ -138,5 +142,6 @@ l
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
 </RelativeLayout>
 
