@@ -229,8 +229,6 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                         break;
                 }
                 if(x==1) {
-                    cType = 1;
-                    adapter.setcType(cType);
                     query2.whereIn("Type", Arrays.asList(SS))
                             .whereEqualTo("UserID", currentUser.getUid())
                             .get()
@@ -246,14 +244,13 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             p.setId(document.getId());
                                         contacts.add(p);
                                     }
-                                    adapter.notifyDataSetChanged();
-                                }
+                                        adapter.notifyDataSetChanged();
+
+                                    }
                             }
                         });
                 }
                 else if(x==2) {
-                    cType = 2;
-                    adapter.setcType(cType);
                     query.whereIn("Type", Arrays.asList(SS))
                             .whereEqualTo("UserID", currentUser.getUid())
                             .get()
@@ -270,13 +267,12 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             contacts.add(p);
                                         }
                                         adapter.notifyDataSetChanged();
+
                                     }
                                 }
                             });
                 }
                 else {
-                    cType = 0;
-                    adapter.setcType(cType);
                     query.whereIn("Type", Arrays.asList(SS))
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
