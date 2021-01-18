@@ -248,16 +248,17 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                         document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                         document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                 p.setPosterID(document.getData().get("UserID").toString());
-                                p.setPosterStars("1.0");
-                                p.setnbRatings("1");
+
                                 DocumentReference docRef = db.collection("users")
                                         .document(document.getData().get("UserID").toString());
                                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         if (task.isSuccessful()) {
+
                                             p.setPosterStars("1.0");
                                             p.setnbRatings("1");
+                                            Toast.makeText(getApplicationContext(), "fgeqrgrtgrtger", Toast.LENGTH_SHORT).show();
                                             // Document found in the offline cache
                                             DocumentSnapshot dd = task.getResult();
                                             p.setPosterStars(dd.getData().get("Stars").toString());
