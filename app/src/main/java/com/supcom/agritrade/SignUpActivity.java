@@ -83,8 +83,9 @@ public class SignUpActivity extends AppCompatActivity {
                             user.put("email", ed1.getText().toString());
                             user.put("Localisation", local.getText().toString());
                             user.put("UserID", mAuth.getCurrentUser().getUid());
-                            user.put("Stars", "0");
-                 
+                            user.put("Stars", "0.0");
+                            user.put("nbRatings", "0");
+
                             Date currentTime = Calendar.getInstance().getTime();
                             user.put("RegistrationDate", DateFormat.getDateInstance(DateFormat.FULL).format(currentTime));
 

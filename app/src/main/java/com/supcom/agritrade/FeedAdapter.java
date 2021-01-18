@@ -139,6 +139,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             holder.prix.setText(captions.get(position).getPrice() + " DT");
             holder.quantite.setText(captions.get(position).getDescription() + " " + captions.get(position).getUnite());
             holder.date.setText(captions.get(position).getDate());
+            holder.stars.setRating(Float.parseFloat(captions.get(position).getPosterStars()));
+            holder.rl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ct, rate.class);
+                    PostData postData = captions.get(position);
+                    intent.putExtra("postD", postData);
+                    v.getContext().startActivity(intent);
+                }
+            });
+            holder.stars.setRating(Float.parseFloat(captions.get(position).getPosterStars()));
+            /*
             holder.stars.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -165,6 +177,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                     return true;
                 }
             });
+
+             */
         } else {
 
             holder.rl.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +197,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             holder.prix.setText(captions.get(position).getPrice() + " DT/" + captions.get(position).getUnite());
             holder.quantite.setText(captions.get(position).getDescription() + " " + captions.get(position).getUnite());
             holder.date.setText(captions.get(position).getDate());
+            holder.stars.setRating(Float.parseFloat(captions.get(position).getPosterStars()));
+            Toast.makeText(ct.getApplicationContext(), captions.get(position).getPosterStars(), Toast.LENGTH_SHORT).show();
         }
     }
 

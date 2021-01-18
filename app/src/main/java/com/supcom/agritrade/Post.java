@@ -32,12 +32,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -46,6 +52,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,6 +66,7 @@ public class Post extends AppCompatActivity {
     private ImageView imageView;
     private Spinner sp,spkg;
     private String Type,unite;
+
     Uri filePath;
     String path;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -87,6 +95,7 @@ public class Post extends AppCompatActivity {
         btnChoose = (Button) findViewById(R.id.upload);
         imageView = (ImageView) findViewById(R.id.taswira);
         back=findViewById(R.id.back);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,6 +217,8 @@ public class Post extends AppCompatActivity {
             }
         });
         Post.setOnClickListener(new View.OnClickListener() {
+            String s1 = "0.1f", s2 = "0.2f";
+
             @Override
             public void onClick(View v) {
                 ProgressBar p = findViewById(R.id.prog);
@@ -215,29 +226,47 @@ public class Post extends AppCompatActivity {
                 Date currentTime = Calendar.getInstance().getTime();
                 final String formattedDta = DateFormat.getDateInstance(DateFormat.MEDIUM).format(currentTime);
                 uploadImage();
-                Map<String, Object> Post = new HashMap<>();
+                final Map<String, Object> Post = new HashMap<>();
                 Post.put("Type", Type);
                 Post.put("Price", Price.getText().toString());
                 Post.put("Description", Description.getText().toString());
                 Post.put("image", path);
-                Post.put("Date",formattedDta);
-                Post.put("unite",unite);
+                Post.put("Date", formattedDta);
+                Post.put("unite", unite);
                 Post.put("UserID", currentUser.getUid());
-                db.collection("Posts").document()
-                        .set(Post)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getApplicationContext(), "Posted", Toast.LENGTH_SHORT).show();
+                DocumentReference docRef = db.collection("users").document(currentUser.getUid());
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Document found in the offline cache
+                            DocumentSnapshot document = task.getResult();
 
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
+                            s1 = document.getData().get("Stars").toString();
+                            s2 = document.getData().get("nbRatings").toString();
+                            Post.put("posterStars", s1);
+                            Post.put("nbRatings", s2);
+                            db.collection("Posts").document()
+                                    .set(Post)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(getApplicationContext(), "Posted", Toast.LENGTH_SHORT).show();
 
-                            }
-                        });
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                        }
+                                    });
+                            Toast.makeText(getApplicationContext(), s1, Toast.LENGTH_SHORT).show();
+                        } else {
+                        }
+                    }
+                });
+
 
                 p.setVisibility(View.GONE);
             }

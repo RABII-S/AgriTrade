@@ -44,6 +44,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -169,6 +170,12 @@ public class commande extends AppCompatActivity {
                 submit.put("Price", postData.getPrice());
                 submit.put("unite", postData.getUnite());
                 submit.put("posterID", postData.getPosterID());
+                submit.put("posterStars", db.collection("users")
+                        .document(currentUser.getUid())
+                        .get(Source.valueOf("Stars")));
+                submit.put("nbRatings", db.collection("users")
+                        .document(currentUser.getUid())
+                        .get(Source.valueOf("nbRatings")));
                 Integer fdd = Integer.parseInt(quantite.getText().toString()) * Integer.parseInt(postData.getPrice());
                 submit.put("TotalPrice", fdd.toString());
                 submit.put("UserID", currentUser.getUid());

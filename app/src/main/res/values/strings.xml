@@ -44,5 +44,6 @@
     </string-array>
     <string name="title_activity_main3">MainActivity</string>
     <string name="title_activity_profile">profile</string>
+    <string name="title_activity_rate">rate</string>
 
 </resources>

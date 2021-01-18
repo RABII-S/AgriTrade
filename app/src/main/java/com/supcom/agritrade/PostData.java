@@ -18,7 +18,9 @@ public class PostData implements Serializable {
     private String unite;
     private String image;
     private String date;
-    private String stars;
+    private String posterStars;
+    private String nbRatings;
+
     private String posterID;
     static ArrayList<PostData> contacts = new ArrayList<PostData>();
 
@@ -30,11 +32,23 @@ public class PostData implements Serializable {
         this.image = image;
         unite = u;
         this.date = date;
-        this.stars = stars;
+
     }
 
-    public String getStars() {
-        return stars;
+    public String getPosterStars() {
+        return posterStars;
+    }
+
+    public void setPosterStars(String posterStars) {
+        this.posterStars = posterStars;
+    }
+
+    public String getnbRatings() {
+        return nbRatings;
+    }
+
+    public void setnbRatings(String nbRatings) {
+        this.nbRatings = nbRatings;
     }
 
     public String getDate() {

@@ -40,6 +40,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,11 +88,30 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
-                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("TotalPrice").toString(),
+                                            final PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("TotalPrice").toString(),
                                                     document.getData().get("quantite").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setId(document.getId());
                                             p.setPosterID(document.getData().get("posterID").toString());
+                                            /*
+                                            DocumentReference docRef = db.collection("users")
+                                                    .document(document.getData().get("posterID").toString());
+                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        // Document found in the offline cache
+                                                        DocumentSnapshot document = task.getResult();
+                                                        p.setPosterStars(document.getData().get("Stars").toString());
+                                                        p.setnbRatings(document.getData().get("nbRatings").toString());
+                                                    } else {
+                                                    }
+                                                }
+                                            });
+
+                                             */
+                                            p.setPosterStars(document.getData().get("posterStars").toString());
+                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             contacts.add(p);
                                         }
                                         adapter.setcType(1);
@@ -109,11 +129,30 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
-                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
+                                            final PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
                                                     document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setId(document.getId());
                                             p.setPosterID(document.getData().get("UserID").toString());
+                                            /*
+                                            DocumentReference docRef = db.collection("users")
+                                                    .document(document.getData().get("UserID").toString());
+                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        // Document found in the offline cache
+                                                        DocumentSnapshot dd = task.getResult();
+                                                        p.setPosterStars(dd.getData().get("Stars").toString());
+                                                        p.setnbRatings(dd.getData().get("nbRatings").toString());
+                                                    } else {
+                                                    }
+                                                }
+                                            });
+
+                                             */
+                                            p.setPosterStars(document.getData().get("posterStars").toString());
+                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             contacts.add(p);
                                         }
                                         adapter.setcType(2);
@@ -129,14 +168,38 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
+                                        Toast.makeText(getApplicationContext(), "    ", Toast.LENGTH_SHORT).show();
                                         for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
+                                            final PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
                                                     document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
+
                                             p.setPosterID(document.getData().get("UserID").toString());
+
+                                            p.setPosterStars(document.getData().get("posterStars").toString());
+                                            //  Toast.makeText(getApplicationContext(), document.getData().get("posterStars").toString(), Toast.LENGTH_SHORT).show();
+                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
+                                            /*
+                                                  DocumentReference docRef = db.collection("users")
+                                                    .document(document.getData().get("UserID").toString());
+                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        // Document found in the offline cache
+                                                        DocumentSnapshot dd = task.getResult();
+                                                        p.setPosterStars(dd.getData().get("Stars").toString());
+                                                        p.setnbRatings(dd.getData().get("nbRatings").toString());
+                                                    } else {
+                                                    }
+                                                }
+                                            });
+
+                                             */
+
                                         }
                                         adapter.setcType(0);
                                     }
@@ -181,15 +244,41 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
+                                final PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
                                         document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                         document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                 p.setPosterID(document.getData().get("UserID").toString());
+                                p.setPosterStars("1.0");
+                                p.setnbRatings("1");
+                                DocumentReference docRef = db.collection("users")
+                                        .document(document.getData().get("UserID").toString());
+                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            p.setPosterStars("1.0");
+                                            p.setnbRatings("1");
+                                            // Document found in the offline cache
+                                            DocumentSnapshot dd = task.getResult();
+                                            p.setPosterStars(dd.getData().get("Stars").toString());
+                                            p.setnbRatings(dd.getData().get("nbRatings").toString());
+
+
+                                        } else {
+                                        }
+                                    }
+                                });
+
+                                 /*
+                                p.setPosterStars(document.getData().get("posterStars").toString());
+                                p.setnbRatings(document.getData().get("nbRatings").toString());
+
+                                contacts.add(p);
+*/
                                 p.setId(document.getId());
                                 contacts.add(p);
-                                adapter.notifyDataSetChanged();
-
                             }
+                            adapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -237,13 +326,32 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
-                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("TotalPrice").toString(),
+                                            final PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("TotalPrice").toString(),
                                                     document.getData().get("quantite").toString(), document.getData().get("image").toString(),
-                                                document.getData().get("unite").toString(), document.getData().get("Date").toString());
-                                            p.setPosterID(document.getData().get("UserID").toString());
+                                                    document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                            p.setPosterID(document.getData().get("posterID").toString());
+                                            /*
+                                            DocumentReference docRef = db.collection("users")
+                                                    .document(document.getData().get("posterID").toString());
+                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        // Document found in the offline cache
+                                                        DocumentSnapshot document = task.getResult();
+                                                        p.setPosterStars(document.getData().get("Stars").toString());
+                                                        p.setnbRatings(document.getData().get("nbRatings").toString());
+                                                    } else {
+                                                    }
+                                                }
+                                            });
+
+                                             */
+                                            p.setPosterStars(document.getData().get("posterStars").toString());
+                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             p.setId(document.getId());
-                                        contacts.add(p);
-                                    }
+                                            contacts.add(p);
+                                        }
                                         adapter.notifyDataSetChanged();
 
                                     }
@@ -259,10 +367,29 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
-                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
+                                            final PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
                                                     document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setPosterID(document.getData().get("UserID").toString());
+                                            /*
+                                            DocumentReference docRef = db.collection("users")
+                                                    .document(document.getData().get("UserID").toString());
+                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        // Document found in the offline cache
+                                                        DocumentSnapshot document = task.getResult();
+                                                        p.setPosterStars(document.getData().get("Stars").toString());
+                                                        p.setnbRatings(document.getData().get("nbRatings").toString());
+                                                    } else {
+                                                    }
+                                                }
+                                            });
+
+                                             */
+                                            p.setPosterStars(document.getData().get("posterStars").toString());
+                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }
@@ -285,6 +412,18 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setPosterID(document.getData().get("UserID").toString());
+                                            /*
+                                            p.setPosterStars(db.collection("users")
+                                                    .document(document.getData().get("UserID").toString())
+                                                    .get(Source.valueOf("Stars")).toString());
+
+                                            p.setPosterStars(db.collection("users")
+                                                    .document(document.getData().get("UserID").toString())
+                                                    .get(Source.valueOf("nbRatings")).toString());
+
+                                             */
+                                            p.setPosterStars(document.getData().get("posterStars").toString());
+                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }
