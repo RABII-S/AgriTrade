@@ -93,25 +93,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setId(document.getId());
                                             p.setPosterID(document.getData().get("posterID").toString());
-                                            /*
-                                            DocumentReference docRef = db.collection("users")
-                                                    .document(document.getData().get("posterID").toString());
-                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        // Document found in the offline cache
-                                                        DocumentSnapshot document = task.getResult();
-                                                        p.setPosterStars(document.getData().get("Stars").toString());
-                                                        p.setnbRatings(document.getData().get("nbRatings").toString());
-                                                    } else {
-                                                    }
-                                                }
-                                            });
 
-                                             */
-                                            p.setPosterStars(document.getData().get("posterStars").toString());
-                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             contacts.add(p);
                                         }
                                         adapter.setcType(1);
@@ -134,25 +116,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setId(document.getId());
                                             p.setPosterID(document.getData().get("UserID").toString());
-                                            /*
-                                            DocumentReference docRef = db.collection("users")
-                                                    .document(document.getData().get("UserID").toString());
-                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        // Document found in the offline cache
-                                                        DocumentSnapshot dd = task.getResult();
-                                                        p.setPosterStars(dd.getData().get("Stars").toString());
-                                                        p.setnbRatings(dd.getData().get("nbRatings").toString());
-                                                    } else {
-                                                    }
-                                                }
-                                            });
 
-                                             */
-                                            p.setPosterStars(document.getData().get("posterStars").toString());
-                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             contacts.add(p);
                                         }
                                         adapter.setcType(2);
@@ -168,7 +132,6 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(getApplicationContext(), "    ", Toast.LENGTH_SHORT).show();
                                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                                             final PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
@@ -177,28 +140,9 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
 
                                             p.setPosterID(document.getData().get("UserID").toString());
 
-                                            p.setPosterStars(document.getData().get("posterStars").toString());
-                                            //  Toast.makeText(getApplicationContext(), document.getData().get("posterStars").toString(), Toast.LENGTH_SHORT).show();
-                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
-                                            /*
-                                                  DocumentReference docRef = db.collection("users")
-                                                    .document(document.getData().get("UserID").toString());
-                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        // Document found in the offline cache
-                                                        DocumentSnapshot dd = task.getResult();
-                                                        p.setPosterStars(dd.getData().get("Stars").toString());
-                                                        p.setnbRatings(dd.getData().get("nbRatings").toString());
-                                                    } else {
-                                                    }
-                                                }
-                                            });
 
-                                             */
 
                                         }
                                         adapter.setcType(0);
@@ -229,13 +173,16 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
 // finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.feed));
         Toolbar toolbar = findViewById(R.id.topAppBar);
+        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         setSupportActionBar(toolbar);
-
+        x = getIntent().getIntExtra("cType", 0);
+        navigation.performClick();
         rv.setAdapter(adapter);
         FloatingActionButton fab = findViewById(R.id.gotopost);
         fab.setOnClickListener(this);
-        ArrayList<String> L=new ArrayList<>();L.add("tofeh");
-        CollectionReference query=db.collection("Posts");
+        ArrayList<String> L = new ArrayList<>();
+        L.add("tofeh");
+        CollectionReference query = db.collection("Posts");
         query.whereIn("Type", Arrays.asList(getResources().getStringArray(R.array.ghala)))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -249,33 +196,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                         document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                 p.setPosterID(document.getData().get("UserID").toString());
 
-                                DocumentReference docRef = db.collection("users")
-                                        .document(document.getData().get("UserID").toString());
-                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
 
-                                            p.setPosterStars("1.0");
-                                            p.setnbRatings("1");
-                                            Toast.makeText(getApplicationContext(), "fgeqrgrtgrtger", Toast.LENGTH_SHORT).show();
-                                            // Document found in the offline cache
-                                            DocumentSnapshot dd = task.getResult();
-                                            p.setPosterStars(dd.getData().get("Stars").toString());
-                                            p.setnbRatings(dd.getData().get("nbRatings").toString());
-
-
-                                        } else {
-                                        }
-                                    }
-                                });
-
-                                 /*
-                                p.setPosterStars(document.getData().get("posterStars").toString());
-                                p.setnbRatings(document.getData().get("nbRatings").toString());
-
-                                contacts.add(p);
-*/
                                 p.setId(document.getId());
                                 contacts.add(p);
                             }
@@ -294,7 +215,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
         f1.setOnClickListener(Feed.this);
         f2=findViewById(R.id.flesh2);
         f2.setOnClickListener(Feed.this);
-        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
+
         navigation.bringToFront();
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -331,25 +252,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("quantite").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setPosterID(document.getData().get("posterID").toString());
-                                            /*
-                                            DocumentReference docRef = db.collection("users")
-                                                    .document(document.getData().get("posterID").toString());
-                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        // Document found in the offline cache
-                                                        DocumentSnapshot document = task.getResult();
-                                                        p.setPosterStars(document.getData().get("Stars").toString());
-                                                        p.setnbRatings(document.getData().get("nbRatings").toString());
-                                                    } else {
-                                                    }
-                                                }
-                                            });
 
-                                             */
-                                            p.setPosterStars(document.getData().get("posterStars").toString());
-                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }
@@ -372,25 +275,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setPosterID(document.getData().get("UserID").toString());
-                                            /*
-                                            DocumentReference docRef = db.collection("users")
-                                                    .document(document.getData().get("UserID").toString());
-                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        // Document found in the offline cache
-                                                        DocumentSnapshot document = task.getResult();
-                                                        p.setPosterStars(document.getData().get("Stars").toString());
-                                                        p.setnbRatings(document.getData().get("nbRatings").toString());
-                                                    } else {
-                                                    }
-                                                }
-                                            });
 
-                                             */
-                                            p.setPosterStars(document.getData().get("posterStars").toString());
-                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }
@@ -413,18 +298,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("Description").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setPosterID(document.getData().get("UserID").toString());
-                                            /*
-                                            p.setPosterStars(db.collection("users")
-                                                    .document(document.getData().get("UserID").toString())
-                                                    .get(Source.valueOf("Stars")).toString());
 
-                                            p.setPosterStars(db.collection("users")
-                                                    .document(document.getData().get("UserID").toString())
-                                                    .get(Source.valueOf("nbRatings")).toString());
-
-                                             */
-                                            p.setPosterStars(document.getData().get("posterStars").toString());
-                                            p.setnbRatings(document.getData().get("nbRatings").toString());
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }

@@ -1,5 +1,6 @@
 package com.supcom.agritrade;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -7,6 +8,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
@@ -39,25 +41,42 @@ public class rate extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 //Getting the rating and displaying it on the toast
-                s = String.valueOf(ratingbar.getRating());
-                Map<String, Object> map = new HashMap<>();
-                float f1 = Float.parseFloat(s);
-                float f2 = Float.parseFloat(postData.getPosterStars());
-                float f3 = Float.parseFloat(postData.getnbRatings());
-                float f4 = (f1 * f3 + f2) / (f3 + 1);
-                map.put("Stars", String.valueOf(f4));
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                final DocumentReference docRef = db.collection("users").document(postData.getPosterID());
-                docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
+
+                final FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("users").document(postData.getPosterID()).get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                s = String.valueOf(ratingbar.getRating());
+                                Map<String, Object> map = new HashMap<>();
+                                float f1 = Float.parseFloat(s);
+                                float f2 = Float.parseFloat(documentSnapshot.getString("Stars"));
+                                float f3 = Float.parseFloat(documentSnapshot.getString("nbRatings"));
+                                float f4 = (f1 * f3 + f2) / (f3 + 1);
+                                map.put("Stars", String.valueOf(f4));
+                                map.put("nbRatings", String.valueOf(f3 + 1));
+                                final DocumentReference docRef = db.collection("users").document(postData.getPosterID());
+                                docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                    }
+                                });
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+
                     }
                 });
+
+                Intent intent = new Intent(rate.this, Feed.class);
+                intent.putExtra("cType", 1);
+                startActivity(intent);
 
             }
 

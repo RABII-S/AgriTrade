@@ -33,6 +33,7 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -54,7 +55,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     private int[] imageIds;
     Dialog dialog;
     private LinearLayout post;
-
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout rl;
         private TextView type;
@@ -139,7 +140,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             holder.prix.setText(captions.get(position).getPrice() + " DT");
             holder.quantite.setText(captions.get(position).getDescription() + " " + captions.get(position).getUnite());
             holder.date.setText(captions.get(position).getDate());
-            holder.stars.setRating(Float.parseFloat(captions.get(position).getPosterStars()));
             holder.rl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -149,7 +149,20 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                     v.getContext().startActivity(intent);
                 }
             });
-            holder.stars.setRating(Float.parseFloat(captions.get(position).getPosterStars()));
+            String Uid = captions.get(position).getPosterID();
+            db.collection("users").document(Uid).get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            String stars = documentSnapshot.getString("Stars");
+                            holder.stars.setRating(Float.parseFloat(stars));
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
             /*
             holder.stars.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -177,7 +190,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                     return true;
                 }
             });
-
              */
         } else {
 
@@ -197,8 +209,24 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             holder.prix.setText(captions.get(position).getPrice() + " DT/" + captions.get(position).getUnite());
             holder.quantite.setText(captions.get(position).getDescription() + " " + captions.get(position).getUnite());
             holder.date.setText(captions.get(position).getDate());
-            holder.stars.setRating(Float.parseFloat(captions.get(position).getPosterStars()));
+
             Toast.makeText(ct.getApplicationContext(), captions.get(position).getPosterStars(), Toast.LENGTH_SHORT).show();
+
+            String Uid = captions.get(position).getPosterID();
+            db.collection("users").document(Uid).get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            String stars = documentSnapshot.getString("Stars");
+                            holder.stars.setRating(Float.parseFloat(stars));
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+
         }
     }
 
