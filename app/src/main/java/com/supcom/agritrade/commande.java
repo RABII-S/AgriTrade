@@ -173,6 +173,7 @@ public class commande extends AppCompatActivity {
                 Integer fdd = Integer.parseInt(quantite.getText().toString()) * Integer.parseInt(postData.getPrice());
                 submit.put("TotalPrice", fdd.toString());
                 submit.put("UserID", currentUser.getUid());
+                submit.put("ratingState", false);
 
 
                 final DocumentReference docRef = FirebaseFirestore.getInstance().collection("Posts").document(postData.getId());

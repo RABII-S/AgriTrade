@@ -67,6 +67,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private TextView prixCP;
         private RatingBar stars;
         private FirebaseFirestore db;
+        private TextView location;
 
         public ViewHolder(View v) {
             super(v);
@@ -78,7 +79,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             quantiteCP = v.findViewById(R.id.quantitedisponible);
             prixCP = v.findViewById(R.id.prixdelunite);
             quantite = v.findViewById(R.id.quantitedisponiblex);
-            stars=v.findViewById(R.id.stars);
+            stars = v.findViewById(R.id.stars);
+            location = v.findViewById(R.id.location);
         }
     }
 
@@ -143,10 +145,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             holder.rl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(ct, rate.class);
-                    PostData postData = captions.get(position);
-                    intent.putExtra("postD", postData);
-                    v.getContext().startActivity(intent);
+                    boolean ratingState = captions.get(position).getRatingState();
+                    if (ratingState == false) {
+                        Intent intent = new Intent(ct, rate.class);
+                        PostData postData = captions.get(position);
+                        intent.putExtra("postD", postData);
+                        v.getContext().startActivity(intent);
+                    } else {
+                        Toast.makeText(ct, "Vous avez déja noté cette commande", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             String Uid = captions.get(position).getPosterID();
@@ -156,6 +163,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             String stars = documentSnapshot.getString("Stars");
                             holder.stars.setRating(Float.parseFloat(stars));
+                            holder.location.setText(documentSnapshot.getString("Localisation"));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -209,9 +217,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             holder.prix.setText(captions.get(position).getPrice() + " DT/" + captions.get(position).getUnite());
             holder.quantite.setText(captions.get(position).getDescription() + " " + captions.get(position).getUnite());
             holder.date.setText(captions.get(position).getDate());
-
-            Toast.makeText(ct.getApplicationContext(), captions.get(position).getPosterStars(), Toast.LENGTH_SHORT).show();
-
             String Uid = captions.get(position).getPosterID();
             db.collection("users").document(Uid).get()
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -219,6 +224,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             String stars = documentSnapshot.getString("Stars");
                             holder.stars.setRating(Float.parseFloat(stars));
+                            holder.location.setText(documentSnapshot.getString("Localisation"));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override

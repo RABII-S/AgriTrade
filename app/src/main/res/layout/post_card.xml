@@ -28,8 +28,11 @@
                 android:stepSize="0.5"
                 android:layout_marginTop="105dp"
                 android:layout_marginLeft="110dp"
-                android:numStars="5"
-                />
+                android:clickable="false"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+                android:isIndicator="true"
+                android:numStars="5" />
 
             <ImageView
                 android:id="@+id/taswira"
@@ -50,6 +53,7 @@
                 android:text="1000 Kg"
                 android:textSize="15sp"/>
             <TextView
+                android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toRightOf="@id/localisation"

@@ -22,8 +22,11 @@
             android:stepSize="0.5"
             android:layout_marginTop="105dp"
             android:layout_centerHorizontal="true"
-            android:numStars="5"
-            />
+            android:clickable="false"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            android:isIndicator="true"
+            android:numStars="5" />
 
         <TextView
             android:id="@+id/ratenb"

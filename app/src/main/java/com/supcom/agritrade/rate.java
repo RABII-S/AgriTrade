@@ -52,7 +52,7 @@ public class rate extends AppCompatActivity {
                                 float f1 = Float.parseFloat(s);
                                 float f2 = Float.parseFloat(documentSnapshot.getString("Stars"));
                                 float f3 = Float.parseFloat(documentSnapshot.getString("nbRatings"));
-                                float f4 = (f1 * f3 + f2) / (f3 + 1);
+                                float f4 = (f2 * f3 + f1) / (f3 + 1);
                                 map.put("Stars", String.valueOf(f4));
                                 map.put("nbRatings", String.valueOf(f3 + 1));
                                 final DocumentReference docRef = db.collection("users").document(postData.getPosterID());
@@ -73,6 +73,21 @@ public class rate extends AppCompatActivity {
 
                     }
                 });
+                Map<String, Object> map = new HashMap<>();
+                map.put("ratingState", true);
+                final DocumentReference docRef = db.collection("commandes").document(postData.getId());
+                docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+
 
                 Intent intent = new Intent(rate.this, Feed.class);
                 intent.putExtra("cType", 1);

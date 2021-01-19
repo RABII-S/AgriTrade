@@ -92,8 +92,8 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("quantite").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setId(document.getId());
+                                            p.setRatingState((Boolean) document.getData().get("ratingState"));
                                             p.setPosterID(document.getData().get("posterID").toString());
-
                                             contacts.add(p);
                                         }
                                         adapter.setcType(1);
