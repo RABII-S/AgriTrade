@@ -44,8 +44,6 @@ public class profile extends AppCompatActivity {
     private Button submit;
     private EditText firstname;
     private EditText lastname;
-    private EditText password;
-    private EditText email;
     private EditText localisation;
     private RatingBar rate;
     private TextView ratenb;
@@ -64,8 +62,6 @@ public class profile extends AppCompatActivity {
         lastname = findViewById(R.id.xlastname);
         rate = findViewById(R.id.rate);
         ratenb = findViewById(R.id.ratenb);
-        password = findViewById(R.id.xpassword);
-        email = findViewById(R.id.xemail);
         localisation = findViewById(R.id.xlocalisa);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
