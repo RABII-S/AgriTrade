@@ -10,11 +10,11 @@
         android:id="@+id/legumemenu"
         android:enabled="true"
         android:icon="@drawable/carrot"
-        android:title="Legume"/>
+        android:title="Vegetable"/>
 
     <item
         android:id="@+id/autremenu"
         android:enabled="true"
         android:icon="@drawable/ic_logou"
-        android:title="Autre" />
+        android:title="Other" />
 </menu>

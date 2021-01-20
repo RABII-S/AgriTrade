@@ -103,7 +103,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@+id/taswira"
                 android:fontFamily="@font/averia_libre_light"
-                android:text="Prix :"
+                android:text="Price :"
                 android:id="@+id/p"
                 android:textSize="15sp" />
             <TextView
@@ -114,7 +114,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@+id/taswira"
                 android:fontFamily="@font/averia_libre_light"
-                android:text="Quantité  :"
+                android:text="Amount  :"
                 android:id="@+id/q"
                 android:textSize="15sp" />
         </RelativeLayout>
@@ -150,7 +150,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Prix"
+        android:text="Price"
         android:layout_below="@+id/select"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="27dp"
@@ -172,7 +172,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quantité"
+        android:text="Amount"
         android:layout_below="@+id/prix"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="27dp"
@@ -217,7 +217,7 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:fontFamily="@font/averia_libre_light_italic"
-            android:text="Legumes "
+            android:text="Vegetable "
             android:textSize="17sp"
             android:id="@+id/radio1"
             android:textColor="#F2000000"
@@ -235,7 +235,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/averia_libre_light_italic"
-            android:text="autre"
+            android:text="Other"
             android:textSize="17sp"
             android:textColor="#F2000000"
             android:id="@+id/radio3"

@@ -22,5 +22,10 @@
     <style name="AppTheme.OverFlow">
         <item name="android:src">@drawable/ic_logout</item>
     </style>
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#D3D3D3</item>
+        <item name="colorControlActivated">#ffc922</item>
+    </style>
+
 
 </resources>

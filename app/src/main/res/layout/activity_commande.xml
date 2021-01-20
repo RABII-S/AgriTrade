@@ -13,11 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="commande"
+        android:text="Make an order"
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/aclonica"
         android:textSize="39sp"
-        android:textColor="#FAF6F6"
+        android:textColor="#FFFFFF"
         />
     <ImageView
         android:id="@+id/imagecom"
@@ -64,7 +64,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="20dp"
         android:fontFamily="@font/averia_libre_light_italic"
-        android:text="Quantité"
+        android:text="Amount"
         android:textSize="30sp"
         android:id="@+id/quantitex"/>
     <TextView
@@ -147,7 +147,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="40dp"
         android:background="@drawable/button"
-        android:text="Commander"
+        android:text="Order"
         android:layout_marginBottom="20dp"
         android:textColor="#F1E6E6"
         />

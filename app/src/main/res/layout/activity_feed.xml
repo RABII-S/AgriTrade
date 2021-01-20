@@ -19,22 +19,26 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Agritrade"
             app:menu="@menu/menu"
-            app:navigationIcon="@drawable/ic_menu"
-            app:titleTextColor="#709DA8"
-            />
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Agritrade"
+                    android:textColor="#709DA8"
+                    android:textStyle="normal"
+                    android:paddingLeft="66dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/averia_libre_bold"
+                    android:textSize="22sp"/>
+            </RelativeLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="50dp"
-        android:background="#FFFFFF"
-        android:visibility="invisible"
-        android:layout_gravity="start"
-        app:menu="@menu/nav"></com.google.android.material.navigation.NavigationView>
 <!--</androidx.coordinatorlayout.widget.CoordinatorLayout>-->
     <RelativeLayout
         android:layout_width="match_parent"

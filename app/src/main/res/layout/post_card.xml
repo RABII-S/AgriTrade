@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="160dp">
+    android:layout_height="190dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -25,9 +25,9 @@
                 android:layout_height="wrap_content"
                 android:scaleX="0.4"
                 android:scaleY="0.5"
-                android:stepSize="0.5"
-                android:layout_marginTop="105dp"
-                android:layout_marginLeft="110dp"
+                android:stepSize="0.25"
+                android:layout_marginTop="136dp"
+                android:layout_marginLeft="113dp"
                 android:clickable="false"
                 android:focusableInTouchMode="false"
                 android:focusable="false"
@@ -54,8 +54,8 @@
                 android:textSize="15sp"/>
             <TextView
                 android:id="@+id/location"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/localisation"
                 android:layout_below="@+id/quantitedisponible"
                 android:text="benarous"
@@ -93,7 +93,7 @@
                 android:fontFamily="@font/averia_libre_bold"
                 android:layout_below="@+id/quantitedisponible"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="42dp"
+                android:layout_marginTop="70dp"
                 android:layout_marginRight="10dp"
                 android:textSize="12sp"
                 android:id="@+id/datex"
@@ -117,7 +117,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@+id/taswira"
                 android:fontFamily="@font/averia_libre_light"
-                android:text="Prix :"
+                android:text="Price :"
                 android:id="@+id/prixdelunite"
                 android:textSize="15sp" />
             <TextView
@@ -128,7 +128,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@+id/taswira"
                 android:fontFamily="@font/averia_libre_light"
-                android:text="Quantité  :"
+                android:text="Amount  :"
                 android:id="@+id/quantitedisponible"
                 android:textSize="15sp" />
             <TextView
@@ -142,6 +142,28 @@
                 android:text="Localisation:"
                 android:id="@+id/localisation"
                 android:textSize="15sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/localisation"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/taswira"
+                android:fontFamily="@font/averia_libre_light"
+                android:text="Number of rating :"
+                android:id="@+id/numberofrating"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/numberofratingx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/numberofrating"
+                android:layout_below="@+id/localisation"
+                android:text="100"
+                android:fontFamily="@font/averia_libre_bold"
+                android:textSize="15sp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="7dp"/>
 
 
         </RelativeLayout>

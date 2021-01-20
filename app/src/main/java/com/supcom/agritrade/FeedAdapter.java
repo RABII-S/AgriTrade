@@ -223,7 +223,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             String stars = documentSnapshot.getString("Stars");
-                            holder.stars.setRating(Float.parseFloat(stars));
+                            float f4 = Float.parseFloat(stars);//par exemple f4=4.88
+                            int a= (int) (f4*100);              //a=488;
+                            a=a%25;                             //a=475;
+                            f4=a;
+                            f4/=100.0;                          //f4=4.75;5ater fel affichage 7atit el pas 0.25 mta3 el njoum
+                            holder.stars.setRating(f4);
                             holder.location.setText(documentSnapshot.getString("Localisation"));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
