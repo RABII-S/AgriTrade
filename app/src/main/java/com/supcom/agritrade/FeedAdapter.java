@@ -1,7 +1,9 @@
 package com.supcom.agritrade;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -65,6 +67,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private TextView date;
         private TextView quantiteCP;
         private TextView prixCP;
+        private TextView nbRatings;
         private RatingBar stars;
         private FirebaseFirestore db;
         private TextView location;
@@ -81,6 +84,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             quantite = v.findViewById(R.id.quantitedisponiblex);
             stars = v.findViewById(R.id.stars);
             location = v.findViewById(R.id.location);
+            nbRatings = v.findViewById(R.id.numberofratingx);
         }
     }
 
@@ -164,6 +168,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                             String stars = documentSnapshot.getString("Stars");
                             holder.stars.setRating(Float.parseFloat(stars));
                             holder.location.setText(documentSnapshot.getString("Localisation"));
+                            holder.nbRatings.setText(documentSnapshot.getString("nbRatings"));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -199,6 +204,64 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                 }
             });
              */
+        } else if (cType == 2) {
+
+            holder.rl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(ct);
+                    builder1.setMessage("Do you want to delete this item ?");
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    db.collection("Posts").document(captions.get(position).getId()).delete();
+                                    Toast.makeText(ct, "Deleted", Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+
+                                }
+                            });
+
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
+
+                }
+            });
+            holder.quantiteCP.setText("Quantity:");
+            holder.prixCP.setText("Unit Price:");
+            holder.type.setText(captions.get(position).getType());
+            holder.prix.setText(captions.get(position).getPrice() + " DT/" + captions.get(position).getUnite());
+            holder.quantite.setText(captions.get(position).getDescription() + " " + captions.get(position).getUnite());
+            holder.date.setText(captions.get(position).getDate());
+            String Uid = captions.get(position).getPosterID();
+            db.collection("users").document(Uid).get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            String stars = documentSnapshot.getString("Stars");
+                            holder.stars.setRating(Float.parseFloat(stars));
+                            holder.location.setText(documentSnapshot.getString("Localisation"));
+                            holder.nbRatings.setText(documentSnapshot.getString("nbRatings"));
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+
+
         } else {
 
             holder.rl.setOnClickListener(new View.OnClickListener() {
@@ -225,6 +288,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                             String stars = documentSnapshot.getString("Stars");
                             holder.stars.setRating(Float.parseFloat(stars));
                             holder.location.setText(documentSnapshot.getString("Localisation"));
+                            holder.nbRatings.setText(documentSnapshot.getString("nbRatings"));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -232,6 +296,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
                 }
             });
+
 
         }
     }

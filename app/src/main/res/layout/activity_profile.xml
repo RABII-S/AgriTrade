@@ -83,7 +83,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Localisation :"
+            android:text="Location :"
             android:textSize="30sp"
             android:layout_below="@+id/lastname"
             android:fontFamily="@font/averia_libre_light_italic"

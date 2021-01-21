@@ -169,8 +169,8 @@ public class Post extends AppCompatActivity {
                 String[] d = {};
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(Post.this,
                         R.array.batata, android.R.layout.simple_spinner_item);
-                ;
-                if (S.equals("Legumes ")) {
+
+                if (S.equals("Vegetable ")) {
                     adapter = ArrayAdapter.createFromResource(Post.this,
                             R.array.batata, android.R.layout.simple_spinner_item);
 
@@ -182,7 +182,7 @@ public class Post extends AppCompatActivity {
 
 
                     } else {
-                        if (S.equals("autre")) {
+                        if (S.equals("Other")) {
 
                             adapter = ArrayAdapter.createFromResource(Post.this, R.array.autre, android.R.layout.simple_spinner_item);
 
@@ -261,7 +261,7 @@ public class Post extends AppCompatActivity {
 
                                         }
                                     });
-                            Toast.makeText(getApplicationContext(), s1, Toast.LENGTH_SHORT).show();
+
                         } else {
                         }
                     }
@@ -322,11 +322,7 @@ public class Post extends AppCompatActivity {
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast
-                            .makeText(Post.this,
-                                    "Image Uploaded!!",
-                                    Toast.LENGTH_SHORT)
-                            .show();
+
                     Intent intent = new Intent(Post.this, Feed.class);
                     startActivity(intent);
 
@@ -336,7 +332,7 @@ public class Post extends AppCompatActivity {
             });
 
         } else {
-            Toast.makeText(Post.this, "filepath NULL" + filePath.toString(), Toast.LENGTH_SHORT).show();
+
         }
     }
 

@@ -63,10 +63,9 @@ public class MainActivity extends Activity  {
         b1 = (Button) findViewById(R.id.button);
         b2 = (Button) findViewById(R.id.button2);
         ed1 = (EditText) findViewById(R.id.editText);
-        ed1.setText("rabib@gmail.com");
+        ed1.setText(email);
         ed2 = (EditText) findViewById(R.id.editText2);
-        ed2.setText("123456");
-
+        ed2.setText(password);
 
         auth = FirebaseAuth.getInstance();
 

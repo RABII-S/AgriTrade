@@ -64,7 +64,7 @@ public class rate extends AppCompatActivity {
                                 float f3 = Float.parseFloat(documentSnapshot.getString("nbRatings"));
                                 float f4 = (f2 * f3 + f1) / (f3 + 1);
                                 map.put("Stars", String.valueOf(f4));
-                                map.put("nbRatings", String.valueOf(f3 + 1));
+                                map.put("nbRatings", String.valueOf((int) f3 + 1));
                                 final DocumentReference docRef = db.collection("users").document(postData.getPosterID());
                                 docRef.update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override

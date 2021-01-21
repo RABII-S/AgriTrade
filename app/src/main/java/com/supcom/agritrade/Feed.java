@@ -92,8 +92,6 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                                     document.getData().get("quantite").toString(), document.getData().get("image").toString(),
                                                     document.getData().get("unite").toString(), document.getData().get("Date").toString());
                                             p.setId(document.getId());
-                                            p.setRatingState((Boolean) document.getData().get("ratingState"));
-                                            p.setPosterID(document.getData().get("posterID").toString());
                                             contacts.add(p);
                                         }
                                         adapter.setcType(1);
@@ -125,7 +123,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                             });
                 }
                 else {
-                    txt.setText("PUBLICATIONS");
+                    txt.setText("ALL POSTS");
                     query.whereIn("Type", Arrays.asList(S))
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -133,15 +131,17 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
+                                            if (document.getData().get("Description").toString() != "0") {
 
-                                            final PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
-                                                    document.getData().get("Description").toString(), document.getData().get("image").toString(),
-                                                    document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                                final PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
+                                                        document.getData().get("Description").toString(), document.getData().get("image").toString(),
+                                                        document.getData().get("unite").toString(), document.getData().get("Date").toString());
 
-                                            p.setPosterID(document.getData().get("UserID").toString());
+                                                p.setPosterID(document.getData().get("UserID").toString());
 
-                                            p.setId(document.getId());
-                                            contacts.add(p);
+                                                p.setId(document.getId());
+                                                contacts.add(p);
+                                            }
 
 
                                         }
@@ -251,7 +251,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }
-                                        adapter.notifyDataSetChanged();
+                                        adapter.setcType(1);
 
                                     }
                             }
@@ -274,7 +274,7 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                             p.setId(document.getId());
                                             contacts.add(p);
                                         }
-                                        adapter.notifyDataSetChanged();
+                                        adapter.setcType(2);
 
                                     }
                                 }
@@ -288,16 +288,17 @@ public class Feed extends AppCompatActivity implements View.OnClickListener{
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
+                                            if (document.getData().get("Description").toString() != "0") {
+                                                PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
+                                                        document.getData().get("Description").toString(), document.getData().get("image").toString(),
+                                                        document.getData().get("unite").toString(), document.getData().get("Date").toString());
+                                                p.setPosterID(document.getData().get("UserID").toString());
 
-                                            PostData p = new PostData(document.getData().get("Type").toString(), document.getData().get("Price").toString(),
-                                                    document.getData().get("Description").toString(), document.getData().get("image").toString(),
-                                                    document.getData().get("unite").toString(), document.getData().get("Date").toString());
-                                            p.setPosterID(document.getData().get("UserID").toString());
-
-                                            p.setId(document.getId());
-                                            contacts.add(p);
+                                                p.setId(document.getId());
+                                                contacts.add(p);
+                                            }
                                         }
-                                        adapter.notifyDataSetChanged();
+                                        adapter.setcType(0);
                                     }
                                 }
                             });

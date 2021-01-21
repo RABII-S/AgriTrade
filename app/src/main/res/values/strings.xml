@@ -12,29 +12,29 @@
     <string name="title_activity_feed">Feed</string>
     <string name="title_activity_post">Post</string>
     <string-array name="batata">
-        <item>batata</item>
-        <item>tmatem</item>
-        <item>sfenerya</item>
-        <item>bsal</item>
-        <item>khas</item>
-        <item>sal9</item>
-        <item>bitenjena</item>
+        <item>Batata</item>
+        <item>Tmatem</item>
+        <item>Sfenerya</item>
+        <item>Bsal</item>
+        <item>Khas</item>
+        <item>Sal9</item>
+        <item>Bitenjen</item>
     </string-array>
     <string-array name="ghala">
-        <item>tofeh</item>
-        <item>frez</item>
+        <item>Tofeh</item>
+        <item>Frez</item>
         <item>3nib</item>
-        <item>delle3</item>
-        <item>pati5</item>
-        <item>panane</item>
-        <item>borgden</item>
+        <item>Delle3</item>
+        <item>Pati5</item>
+        <item>Banane</item>
+        <item>Borgden</item>
     </string-array>
     <string-array name="autre">
         <item>7lib</item>
-        <item>zit</item>
-        <item>lban</item>
-        <item>gota</item>
-        <item>bitenjena</item>
+        <item>Zit</item>
+        <item>Lban</item>
+        <item>Gota</item>
+        <item>Bitenjena</item>
     </string-array>
     <string-array name="kg">
         <item>Kg</item>

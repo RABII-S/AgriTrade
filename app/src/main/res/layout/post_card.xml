@@ -139,7 +139,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@+id/taswira"
                 android:fontFamily="@font/averia_libre_light"
-                android:text="Localisation:"
+                android:text="Location:"
                 android:id="@+id/localisation"
                 android:textSize="15sp" />
             <TextView
@@ -150,7 +150,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@+id/taswira"
                 android:fontFamily="@font/averia_libre_light"
-                android:text="Number of rating :"
+                android:text="User Rates :"
                 android:id="@+id/numberofrating"
                 android:textSize="15sp" />
             <TextView
